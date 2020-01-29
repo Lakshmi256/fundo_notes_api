@@ -41,6 +41,18 @@
     <version>1.18.10</version>
     <scope>provided</scope>
 </dependency>
+<!-- https://mvnrepository.com/artifact/org.jboss.spec.javax.transaction/jboss-transaction-api_1.1_spec -->
+<dependency>
+    <groupId>org.jboss.spec.javax.transaction</groupId>
+    <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+    <version>1.0.1.Final</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/com.auth0/java-jwt -->
+<dependency>
+    <groupId>com.auth0</groupId>
+    <artifactId>java-jwt</artifactId>
+    <version>3.9.0</version>
+</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

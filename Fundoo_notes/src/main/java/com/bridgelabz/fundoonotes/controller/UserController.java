@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.bridgelabz.fundoonotes.entity.UserDto;
+import com.bridgelabz.fundoonotes.entity.UserInformation;
 import com.bridgelabz.fundoonotes.service.Services;
 import com.bridgelabz.fundoonotes.utility.JwtGenerator;
 
@@ -38,15 +38,21 @@ public class UserController {
 		if (result) {
 			
 			return ResponseEntity.status(HttpStatus.CREATED)
-					.body(new Response("registration successfull", 200, information));
+					.body(new Response());
 
 		} else {
-                   
+                  
 			return ResponseEntity.status(HttpStatus.ALREADY_REPORTED)
-					.body(new Response("user already exist", 400, information));
+					.body(new Response());
 
 		}
-
 	}
-
+	@PostMapping
+	public ResponseEntity<UsersDetail>login(@RequestBody LoginInformation information){
+		UserInformation userInformation=service.login(information);
+	if (userInformation!=null)
+	{
+		String token=
+	}
+	}
 }
