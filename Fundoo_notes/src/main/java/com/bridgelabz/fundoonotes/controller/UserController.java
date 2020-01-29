@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.bridgelabz.fundoonotes.entity.LoginInformation;
 import com.bridgelabz.fundoonotes.entity.UserDto;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
 import com.bridgelabz.fundoonotes.service.Services;
@@ -28,6 +30,8 @@ public class UserController {
 	
 	@Autowired
 	private JwtGenerator generate;
+	
+	
 	@PostMapping("/user/registration")
 	@CachePut(value="user", key="#token")
 //	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -52,7 +56,7 @@ public class UserController {
 		UserInformation userInformation=service.login(information);
 	if (userInformation!=null)
 	{
-		String token=
+		String token=generate.jwtToken(userInformation.getUserId());
 	}
 	}
 }
