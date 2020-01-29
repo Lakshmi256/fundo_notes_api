@@ -57,6 +57,11 @@ public class UserController {
 	if (userInformation!=null)
 	{
 		String token=generate.jwtToken(userInformation.getUserId());
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user exist",200));
+	}else {
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user does not exist with given email id",400));
+
 	}
+		
 	}
 }
