@@ -1,6 +1,5 @@
 package com.bridgelabz.fundoonotes.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.http.HttpStatus;
@@ -12,57 +11,57 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bridgelabz.fundoonotes.Response.UsersDetail;
 import com.bridgelabz.fundoonotes.entity.LoginInformation;
 import com.bridgelabz.fundoonotes.entity.UserDto;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
+import com.bridgelabz.fundoonotes.response.Response;
+import com.bridgelabz.fundoonotes.response.UsersDetail;
 import com.bridgelabz.fundoonotes.service.Services;
 import com.bridgelabz.fundoonotes.utility.JwtGenerator;
 
-import io.swagger.models.Response;
-
 @RestController
 @RequestMapping
-@CrossOrigin(origins = "http://localhost:8080")
+
 public class UserController {
 
 	@Autowired
 	private Services service;
-	
+
 	@Autowired
 	private JwtGenerator generate;
-	
-	
+
 	@PostMapping("/user/registration")
-	@CachePut(value="user", key="#token")
-//	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@CachePut(value = "user", key = "#token")
+
 	@ResponseBody
 	public ResponseEntity<Response> registration(@RequestBody UserDto information) {
 
 		boolean result = service.register(information);
 		if (result) {
-			
+
 			return ResponseEntity.status(HttpStatus.CREATED)
-					.body(new Response());
+					.body(new Response("registration succefull", 200, information));
 
 		} else {
-                  
+
 			return ResponseEntity.status(HttpStatus.ALREADY_REPORTED)
-					.body(new Response());
+					.body(new Response("user already ", 400, information));
 
 		}
 	}
-	@PostMapping
-	public ResponseEntity<UsersDetail>login(@RequestBody LoginInformation information){
-		UserInformation userInformation=service.login(information);
-	if (userInformation!=null)
-	{
-		String token=generate.jwtToken(userInformation.getUserId());
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user exist",200));
-	}else {
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user does not exist with given email id",400));
 
-	}
-		
+	@PostMapping("user/login")
+	public ResponseEntity<UsersDetail> login(@RequestBody LoginInformation information) {
+		UserInformation userInformation = service.login(information);
+		if (userInformation != null) {
+			String token = generate.jwtToken(userInformation.getUserId());
+			return ResponseEntity.status(HttpStatus.ACCEPTED).header("login succefull", information.getUsername())
+					.body(new UsersDetail(token, 200, information));
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body(new UsersDetail("login failed ", 400, information));
+
+		}
+
 	}
 }
