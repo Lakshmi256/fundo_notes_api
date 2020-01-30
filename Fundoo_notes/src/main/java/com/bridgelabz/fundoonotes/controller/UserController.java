@@ -31,7 +31,7 @@ public class UserController {
 	private JwtGenerator generate;
 
 	@PostMapping("/user/registration")
-	@CachePut(value = "user", key = "#token")
+	@CachePut(value = "user", key = "token")
 
 	@ResponseBody
 	public ResponseEntity<Response> registration(@RequestBody UserDto information) {
