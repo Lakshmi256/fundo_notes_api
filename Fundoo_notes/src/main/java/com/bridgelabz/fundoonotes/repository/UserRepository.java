@@ -11,4 +11,6 @@ UserInformation getUser(String email);
 UserInformation getUserById(Long id);
 
 boolean upDate(PasswordUpdate information, Long id);
+
+boolean verify(Long id);
 }

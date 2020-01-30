@@ -5,10 +5,11 @@ import javax.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bridgelabz.fundoonotes.entity.PasswordUpdate;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
-
+@Repository
 public class USerRepositoryImplementation implements UserRepository{
 @Autowired
 	private EntityManager entityManager;
@@ -50,6 +51,21 @@ public class USerRepositoryImplementation implements UserRepository{
 			}
 			
 			}
+			@Override
+			public boolean verify(Long id) {
+				Session session= entityManager.unwrap(Session.class);
+				Query q=session.createQuery("update UserInformation set is_verified =:p"+" "+" "+" ehrtr id=:i");
+				q.setParameter("p",true);
+				q.setParameter("i",id);
+				int status= q.executeUpdate();
+				if (status>0) {
+					return true;
+							
+				}
+				else {
+					return false;
+				}
+				
 	}
 
-
+}
