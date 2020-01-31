@@ -1,5 +1,7 @@
 package com.bridgelabz.fundoonotes.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -21,6 +23,7 @@ public class UserInformation {
 	private Long mobileNumber;
 
 	private boolean isVerified;
+	private LocalDateTime createDate;
 
 	public long getUserId() {
 		return userId;
@@ -68,6 +71,14 @@ public class UserInformation {
 
 	public void setVerified(boolean isVerified) {
 		this.isVerified = isVerified;
+	}
+
+	public LocalDateTime getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(LocalDateTime createDate) {
+		this.createDate = createDate;
 	}
 
 }
