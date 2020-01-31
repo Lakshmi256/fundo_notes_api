@@ -33,6 +33,7 @@ public class ServiceImplementation implements Services {
 		if (user == null) {
 			userInformation = modelMapper.map(information, UserInformation.class);
 			userInformation.setCreateDate(LocalDateTime.now());
+			userInformation.setPassword(null);///
 		}
 		return false;
 	}
