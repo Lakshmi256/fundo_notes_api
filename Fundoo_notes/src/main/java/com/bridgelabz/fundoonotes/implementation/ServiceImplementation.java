@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.bridgelabz.fundoonotes.entity.LoginInformation;
@@ -24,6 +25,8 @@ public class ServiceImplementation implements Services {
 	@Autowired
 	private JwtGenerator generate;
 	@Autowired
+	private BCryptPasswordEncoder encryption;
+	@Autowired
 	private ModelMapper modelMapper;
 
 	@Transactional
@@ -33,9 +36,14 @@ public class ServiceImplementation implements Services {
 		if (user == null) {
 			userInformation = modelMapper.map(information, UserInformation.class);
 			userInformation.setCreateDate(LocalDateTime.now());
-			userInformation.setPassword(null);///
+			String epassword =encryption.encode(information.getPassword());
+			userInformation.setPassword(epassword);
+			userInformation.setVerified(false);
+			userInformation=repository.save(userInformation);
+			return true;
 		}
-		return false;
+		else
+			return false;
 	}
 
 	@Override
