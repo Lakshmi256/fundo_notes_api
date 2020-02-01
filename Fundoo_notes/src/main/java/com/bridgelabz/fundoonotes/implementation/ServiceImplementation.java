@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.bridgelabz.fundoonotes.entity.LoginInformation;
 import com.bridgelabz.fundoonotes.entity.UserDto;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
+import com.bridgelabz.fundoonotes.exception.UserException;
 import com.bridgelabz.fundoonotes.repository.UserRepository;
 import com.bridgelabz.fundoonotes.service.Services;
 import com.bridgelabz.fundoonotes.utility.JwtGenerator;
@@ -43,7 +44,7 @@ public class ServiceImplementation implements Services {
 			return true;
 		}
 		else
-			return false;
+			throw new UserException("user already exists with the same mail id");
 	}
 
 	@Override
