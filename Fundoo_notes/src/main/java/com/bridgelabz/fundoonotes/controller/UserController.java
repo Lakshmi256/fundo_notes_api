@@ -20,7 +20,7 @@ import com.bridgelabz.fundoonotes.service.Services;
 import com.bridgelabz.fundoonotes.utility.JwtGenerator;
 
 @RestController
-@RequestMapping
+
 
 public class UserController {
 
@@ -31,7 +31,7 @@ public class UserController {
 	private JwtGenerator generate;
 
 	@PostMapping("/user/registration")
-	@CachePut(value = "user", key = "token")
+
 
 	@ResponseBody
 	public ResponseEntity<Response> registration(@RequestBody UserDto information) {
@@ -49,7 +49,6 @@ public class UserController {
 
 		}
 	}
-
 	@PostMapping("user/login")
 	public ResponseEntity<UsersDetail> login(@RequestBody LoginInformation information) {
 		UserInformation userInformation = service.login(information);
