@@ -37,19 +37,29 @@ public class ServiceImplementation implements Services {
 		if (user == null) {
 			userInformation = modelMapper.map(information, UserInformation.class);
 			userInformation.setCreateDate(LocalDateTime.now());
-			String epassword =encryption.encode(information.getPassword());
+			String epassword = encryption.encode(information.getPassword());
 			userInformation.setPassword(epassword);
 			userInformation.setVerified(false);
-			userInformation=repository.save(userInformation);
+			userInformation = repository.save(userInformation);
 			return true;
-		}
-		else
+		} else
 			throw new UserException("user already exists with the same mail id");
 	}
 
+	@Transactional
 	@Override
 	public UserInformation login(LoginInformation information) {
-		// TODO Auto-generated method stub
+		UserInformation user = repository.getUser(information.getUsername());
+		if (user != null) {
+
+			if ((user.isVerified() == true) && (encryption.matches(information.getPassword(), user.getPassword()))) {
+				System.out.println(generate.jwtToken(user.getUserId()));
+				return user;
+			} else {
+				// mail
+				return null;
+			}
+		}
 		return null;
 	}
 
