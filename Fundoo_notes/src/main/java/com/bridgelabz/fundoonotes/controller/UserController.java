@@ -21,7 +21,6 @@ import com.bridgelabz.fundoonotes.utility.JwtGenerator;
 
 @RestController
 
-
 public class UserController {
 
 	@Autowired
@@ -31,7 +30,6 @@ public class UserController {
 	private JwtGenerator generate;
 
 	@PostMapping("/user/registration")
-
 
 	@ResponseBody
 	public ResponseEntity<Response> registration(@RequestBody UserDto information) {
@@ -49,6 +47,7 @@ public class UserController {
 
 		}
 	}
+
 	@PostMapping("user/login")
 	public ResponseEntity<UsersDetail> login(@RequestBody LoginInformation information) {
 		UserInformation userInformation = service.login(information);
@@ -63,29 +62,31 @@ public class UserController {
 		}
 
 	}
+
 	@GetMapping("/user/verify/{token}")
 	public ResponseEntity<Response> userVerification(@PathVariable("token") String token) throws Exception {
 
 		System.out.println("token for verification" + token);
 		boolean update = service.verify(token);
 		if (update) {
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("verified", 200,token));
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("verified", 200, token));
 		} else {
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("not verified", 400,token));
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("not verified", 400, token));
 
 		}
 
 	}
 
 	@PostMapping("user/forgotpassword")
-	public ResponseEntity<Response> forgogPassword(@RequestParam("email") String email) {
+	public ResponseEntity<Response> forgotPassword(@RequestParam("email") String email) {
 		System.out.println(email);
 
 		boolean result = service.isUserExist(email);
 		if (result) {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user exist", 200, email));
 		} else {
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user does not exist with given email id", 400,email));
+			return ResponseEntity.status(HttpStatus.ACCEPTED)
+					.body(new Response("user does not exist with given email id", 400, email));
 		}
 
 	}

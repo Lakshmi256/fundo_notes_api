@@ -40,7 +40,6 @@ public class ServiceImplementation implements Services {
 	@Autowired
 	private RabbitMQSender rabbitMQSender;
 
-
 	@Transactional
 	@Override
 	public boolean register(UserDto information) {
@@ -52,7 +51,8 @@ public class ServiceImplementation implements Services {
 			userInformation.setPassword(epassword);
 			userInformation.setVerified(false);
 			userInformation = repository.save(userInformation);
-			String mailResponse=response.fromMessage("http://localhost:8080/verify",generate.jwtToken(userInformation.getUserId()));
+			String mailResponse = response.fromMessage("http://localhost:8080/verify",
+					generate.jwtToken(userInformation.getUserId()));
 			System.out.println(mailResponse);
 			mailObject.setEmail(information.getEmail());
 			mailObject.setMessage(mailResponse);
@@ -73,18 +73,21 @@ public class ServiceImplementation implements Services {
 				System.out.println(generate.jwtToken(user.getUserId()));
 				return user;
 			} else {
-				String mailResposne=response.fromMessage("http://localhost:8080/verify", generate.jwtToken(user.getUserId()));
-				MailServiceProvider.sendEmail(information.getUsername(),"verification", mailResposne);
-			return null;
+				String mailResposne = response.fromMessage("http://localhost:8080/verify",
+						generate.jwtToken(user.getUserId()));
+				MailServiceProvider.sendEmail(information.getUsername(), "verification", mailResposne);
+				return null;
 			}
-		}else {
-			return null;	
+		} else {
+			return null;
 		}
-		
+
 	}
+
 	public String generateToken(Long id) {
 		return generate.jwtToken(id);
 	}
+
 	@Transactional
 	@Override
 	public boolean verify(String token) throws Exception {
@@ -99,7 +102,8 @@ public class ServiceImplementation implements Services {
 		try {
 			UserInformation user = repository.getUser(email);
 			if (user.isVerified() == true) {
-				String mailResposne=response.fromMessage("http://localhost:8080/verify", generate.jwtToken(user.getUserId()));
+				String mailResposne = response.fromMessage("http://localhost:8080/verify",
+						generate.jwtToken(user.getUserId()));
 				MailServiceProvider.sendEmail(user.getEmail(), "verification", mailResposne);
 				return true;
 			} else {
@@ -109,6 +113,5 @@ public class ServiceImplementation implements Services {
 			throw new UserException("User doesn't exist");
 		}
 	}
-      
 
 }

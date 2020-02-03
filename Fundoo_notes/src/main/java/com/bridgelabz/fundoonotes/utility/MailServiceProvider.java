@@ -53,9 +53,10 @@ public class MailServiceProvider {
 			System.out.println("exception occured while sending mail");
 		}
 	}
-	@RabbitListener(queues="rmq.rube.queue")
+
+	@RabbitListener(queues = "rmq.rube.queue")
 	public void recieveMessage(MailObject user) {
-		sendEmail(user.getEmail(),user.getSubject(),user.getMessage());
-		System.out.println("recieved message from RabbitMQ:"+user);
+		sendEmail(user.getEmail(), user.getSubject(), user.getMessage());
+		System.out.println("recieved message from RabbitMQ:" + user);
 	}
 }

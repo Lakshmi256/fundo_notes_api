@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.bridgelabz.fundoonotes.response.MailObject;
 
-
 @Component
 public class RabbitMQSender {
 	@Autowired
@@ -16,7 +15,8 @@ public class RabbitMQSender {
 	private String exchange;
 	@Value("rube.key")
 	private String routingkey;
-public void send(MailObject message) {
-	rabbitTemplate.convertAndSend(exchange, routingkey, message);
-}
+
+	public void send(MailObject message) {
+		rabbitTemplate.convertAndSend(exchange, routingkey, message);
+	}
 }

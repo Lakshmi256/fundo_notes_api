@@ -14,5 +14,4 @@ public interface Services {
 
 	boolean isUserExist(String email);
 
-
 }

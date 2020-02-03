@@ -15,7 +15,7 @@ public class JwtGenerator {
 		try {
 			token = JWT.create().withClaim("id", l).sign(Algorithm.HMAC512(SECRET));
 		} catch (IllegalArgumentException | JWTCreationException e) {
-			// TODO: handle exception
+
 			e.printStackTrace();
 		}
 		return token;
