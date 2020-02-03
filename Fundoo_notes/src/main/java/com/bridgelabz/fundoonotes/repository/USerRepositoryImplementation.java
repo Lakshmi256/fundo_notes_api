@@ -3,10 +3,10 @@ package com.bridgelabz.fundoonotes.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.bridgelabz.fundoonotes.entity.PasswordUpdate;
@@ -14,8 +14,9 @@ import com.bridgelabz.fundoonotes.entity.UserInformation;
 
 @Repository
 public class USerRepositoryImplementation implements UserRepository {
-	@Autowired
+	@PersistenceContext
 	private EntityManager entityManager;
+	
 
 	@Override
 	public UserInformation save(UserInformation userInfromation) {
