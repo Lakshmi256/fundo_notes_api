@@ -76,9 +76,9 @@ public class ServiceImplementation implements Services {
 		try {
 			UserInformation user = repository.getUser(email);
 			if (user.isVerified() == true) {
-				//String mailResponse = response.formMessage("http://localhost:3000/updatePassword",
-			//			generate.jwtToken(user.getUserId()));
-			//	MailServiceProvider.sendEmail(user.getEmail(), "verification", mailResponse);
+		//		String mailResponse = response.formMessage("http://localhost:3000/updatePassword",
+		//				generate.jwtToken(user.getUserId()));
+		//		MailServiceProvider.sendEmail(user.getEmail(), "verification", mailResponse);
 				return true;
 			} else {
 				return false;
