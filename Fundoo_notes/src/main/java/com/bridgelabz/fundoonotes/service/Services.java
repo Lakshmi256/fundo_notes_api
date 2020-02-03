@@ -10,5 +10,9 @@ public interface Services {
 
 	UserInformation login(LoginInformation information);
 
+	boolean verify(String token) throws Exception;
+
+	boolean isUserExist(String email);
+
 
 }

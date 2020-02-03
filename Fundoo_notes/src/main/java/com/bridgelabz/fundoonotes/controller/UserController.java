@@ -1,13 +1,13 @@
 package com.bridgelabz.fundoonotes.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,6 +60,32 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 					.body(new UsersDetail("login failed ", 400, information));
 
+		}
+
+	}
+	@GetMapping("/user/verify/{token}")
+	public ResponseEntity<Response> userVerification(@PathVariable("token") String token) throws Exception {
+
+		System.out.println("token for verification" + token);
+		boolean update = service.verify(token);
+		if (update) {
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("verified", 200,token));
+		} else {
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("not verified", 400,token));
+
+		}
+
+	}
+
+	@PostMapping("user/forgotpassword")
+	public ResponseEntity<Response> forgogPassword(@RequestParam("email") String email) {
+		System.out.println(email);
+
+		boolean result = service.isUserExist(email);
+		if (result) {
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user exist", 200, email));
+		} else {
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user does not exist with given email id", 400,email));
 		}
 
 	}

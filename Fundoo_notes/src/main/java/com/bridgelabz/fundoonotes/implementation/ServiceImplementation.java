@@ -62,5 +62,31 @@ public class ServiceImplementation implements Services {
 		}
 		return null;
 	}
+	@Transactional
+	@Override
+	public boolean verify(String token) throws Exception {
+		System.out.println("id in verification" + (long) generate.parseJWT(token));
+		Long id = (long) generate.parseJWT(token);
+		repository.verify(id);
+		return true;
+	}
+
+	@Override
+	public boolean isUserExist(String email) {
+		try {
+			UserInformation user = repository.getUser(email);
+			if (user.isVerified() == true) {
+				//String mailResponse = response.formMessage("http://localhost:3000/updatePassword",
+			//			generate.jwtToken(user.getUserId()));
+			//	MailServiceProvider.sendEmail(user.getEmail(), "verification", mailResponse);
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			throw new UserException("User doesn't exist");
+		}
+	}
+      
 
 }
