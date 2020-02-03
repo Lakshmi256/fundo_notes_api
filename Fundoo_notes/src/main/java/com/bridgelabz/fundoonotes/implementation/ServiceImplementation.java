@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.bridgelabz.fundoonotes.configuration.RabbitMQSender;
+
 import com.bridgelabz.fundoonotes.entity.LoginInformation;
 import com.bridgelabz.fundoonotes.entity.UserDto;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
@@ -37,8 +37,7 @@ public class ServiceImplementation implements Services {
 	private MailResponse response;
 	@Autowired
 	private MailObject mailObject;
-	@Autowired
-	private RabbitMQSender rabbitMQSender;
+
 
 	@Transactional
 	@Override
@@ -57,7 +56,8 @@ public class ServiceImplementation implements Services {
 			mailObject.setEmail(information.getEmail());
 			mailObject.setMessage(mailResponse);
 			mailObject.setSubject("verification");
-			rabbitMQSender.send(mailObject);
+			MailServiceProvider.sendEmail(mailObject.getEmail(),mailObject.getSubject(),mailObject.getMessage());
+
 			return true;
 		} else
 			throw new UserException("user already exists with the same mail id");
