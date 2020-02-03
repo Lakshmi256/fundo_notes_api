@@ -3,6 +3,7 @@ package com.bridgelabz.fundoonotes.utility;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
+import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -44,7 +45,7 @@ public class MailServiceProvider {
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(fromEmail, "lp"));
-			message.setRecipient(message.RecipientType.TO, new InternetAddress(toEmail));
+			message.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 			message.setSubject(subject);
 			message.setText(body);
 			Transport.send(message);
