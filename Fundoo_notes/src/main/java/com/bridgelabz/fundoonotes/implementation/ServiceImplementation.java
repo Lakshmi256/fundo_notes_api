@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
 import com.bridgelabz.fundoonotes.entity.LoginInformation;
 import com.bridgelabz.fundoonotes.entity.UserDto;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
@@ -38,7 +37,6 @@ public class ServiceImplementation implements Services {
 	@Autowired
 	private MailObject mailObject;
 
-
 	@Transactional
 	@Override
 	public boolean register(UserDto information) {
@@ -56,7 +54,7 @@ public class ServiceImplementation implements Services {
 			mailObject.setEmail(information.getEmail());
 			mailObject.setMessage(mailResponse);
 			mailObject.setSubject("verification");
-			MailServiceProvider.sendEmail(mailObject.getEmail(),mailObject.getSubject(),mailObject.getMessage());
+			MailServiceProvider.sendEmail(mailObject.getEmail(), mailObject.getSubject(), mailObject.getMessage());
 
 			return true;
 		} else

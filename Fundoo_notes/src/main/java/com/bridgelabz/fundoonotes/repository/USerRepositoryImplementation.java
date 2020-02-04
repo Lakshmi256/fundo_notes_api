@@ -16,7 +16,6 @@ import com.bridgelabz.fundoonotes.entity.UserInformation;
 public class USerRepositoryImplementation implements UserRepository {
 	@PersistenceContext
 	private EntityManager entityManager;
-	
 
 	@Override
 	public UserInformation save(UserInformation userInfromation) {

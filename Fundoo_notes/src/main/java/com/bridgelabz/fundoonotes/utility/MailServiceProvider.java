@@ -20,7 +20,7 @@ public class MailServiceProvider {
 	private static JavaMailSender javaMailSender;
 
 	public static void sendEmail(String toEmail, String subject, String body) {
-		Gmaildetails gmail=new Gmaildetails();
+		Gmaildetails gmail = new Gmaildetails();
 		String fromEmail = gmail.getEmail();
 		String password = gmail.getPassword();
 		Properties prop = new Properties();
