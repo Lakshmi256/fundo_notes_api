@@ -20,8 +20,9 @@ public class MailServiceProvider {
 	private static JavaMailSender javaMailSender;
 
 	public static void sendEmail(String toEmail, String subject, String body) {
-		String fromEmail = System.getenv("email");
-		String password = System.getenv("password");
+		Gmaildetails gmail=new Gmaildetails();
+		String fromEmail = gmail.getEmail();
+		String password = gmail.getPassword();
 		Properties prop = new Properties();
 		prop.put("mail.smtp.auth", "true");
 		prop.put("mail.smtp.starttls.enable", "true");

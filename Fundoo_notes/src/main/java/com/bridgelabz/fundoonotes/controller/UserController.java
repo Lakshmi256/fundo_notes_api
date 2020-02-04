@@ -30,8 +30,6 @@ public class UserController {
 	private JwtGenerator generate;
 
 	@PostMapping("/user/registration")
-
-	@ResponseBody
 	public ResponseEntity<Response> registration(@RequestBody UserDto information) {
 
 		boolean result = service.register(information);
