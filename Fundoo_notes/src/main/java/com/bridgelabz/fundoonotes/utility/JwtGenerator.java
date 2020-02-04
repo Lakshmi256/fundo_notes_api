@@ -8,7 +8,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 
 @Component
 public class JwtGenerator {
-	private static final String SECRET = "";
+	private static final String SECRET = "1234567890";
 
 	public String jwtToken(long l) {
 		String token = null;
