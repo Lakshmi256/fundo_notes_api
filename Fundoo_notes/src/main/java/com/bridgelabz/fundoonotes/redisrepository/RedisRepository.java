@@ -4,6 +4,7 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.bridgelabz.fundoonotes.entity.NoteInformation;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
 
 @Repository
@@ -18,7 +19,7 @@ public class RedisRepository {
 	}
 
 	public void save(NoteInformation note) {
-		hashOperations.put("note", note.getId(), note);
+//S		hashOperations.put("note", note.getId(), note);
 	}
 
 	public void save(UserInformation user) {

@@ -1,6 +1,7 @@
 package com.bridgelabz.fundoonotes.service;
 
 import com.bridgelabz.fundoonotes.entity.LoginInformation;
+import com.bridgelabz.fundoonotes.entity.PasswordUpdate;
 import com.bridgelabz.fundoonotes.entity.UserDto;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
 
@@ -13,5 +14,7 @@ public interface Services {
 	boolean verify(String token) throws Exception;
 
 	boolean isUserExist(String email);
+
+	boolean update(PasswordUpdate information, String token);
 
 }

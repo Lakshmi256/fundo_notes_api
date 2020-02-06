@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.bridgelabz.fundoonotes.entity.LoginInformation;
+import com.bridgelabz.fundoonotes.entity.PasswordUpdate;
 import com.bridgelabz.fundoonotes.entity.UserDto;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
 import com.bridgelabz.fundoonotes.exception.UserException;
@@ -84,6 +85,21 @@ public class ServiceImplementation implements Services {
 
 	public String generateToken(Long id) {
 		return generate.jwtToken(id);
+	}
+	@Transactional
+@Override
+public boolean update(PasswordUpdate information,String token) {
+		Long id = null;
+		try {
+			id=(Long )generate.parseJWT(token);
+			String epassword =encryption.encode(information.getConfirmPassword());
+			information.setConfirmPassword(epassword);
+			return repository.upDate(information, id);
+			
+		}catch(Exception e)
+		{
+			throw new UserException("invalid credentials");
+		}
 	}
 
 	@Transactional
