@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.bridgelabz.fundoonotes.entity.NoteInformation;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
 
-@Repository
+//@Repository
 public class RedisRepository {
 	private static final String key = "notes";
 	private RedisTemplate<String, Object> redisTemplate;

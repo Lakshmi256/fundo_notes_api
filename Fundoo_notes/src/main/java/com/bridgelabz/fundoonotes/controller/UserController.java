@@ -61,7 +61,7 @@ public class UserController {
 
 	}
 
-	@GetMapping("/user/verify/{token}")
+	@GetMapping("verify/{token}")
 	public ResponseEntity<Response> userVerification(@PathVariable("token") String token) throws Exception {
 
 		System.out.println("token for verification" + token);

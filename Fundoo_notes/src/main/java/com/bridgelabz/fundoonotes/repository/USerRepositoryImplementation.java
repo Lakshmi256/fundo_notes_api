@@ -25,10 +25,10 @@ public class USerRepositoryImplementation implements UserRepository {
 	}
 
 	@Override
-	public UserInformation getUser(String email) {
+	public UserInformation getUser(String name) {
 		Session session = entityManager.unwrap(Session.class);
-		Query q = session.createQuery("FROM UserInformation where email=:email");
-		q.setParameter("email", email);
+		Query q = session.createQuery("FROM UserInformation where name=:name");
+		q.setParameter("name", name);
 		return (UserInformation) q.uniqueResult();
 	}
 
@@ -60,7 +60,7 @@ public class USerRepositoryImplementation implements UserRepository {
 	@Override
 	public boolean verify(Long id) {
 		Session session = entityManager.unwrap(Session.class);
-		Query q = session.createQuery("update UserInformation set is_verified =:p" + " " + " " + " ehrtr id=:i");
+		Query q = session.createQuery("update UserInformation set is_verified =:p" + " " + " " + " where id=:i");
 		q.setParameter("p", true);
 		q.setParameter("i", id);
 		int status = q.executeUpdate();
