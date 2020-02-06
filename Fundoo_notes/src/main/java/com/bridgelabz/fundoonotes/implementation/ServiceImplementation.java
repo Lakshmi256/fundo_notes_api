@@ -136,19 +136,19 @@ public class ServiceImplementation implements Services {
 		UserInformation user = users.get(0);
 		return users;
 	}
+
 	@Transactional
 	@Override
 	public UserInformation getsingleUser(String token) {
 		Long id;
 		try {
-			id=(Long)generate.parseJWT(token);
-			
-		}catch (Exception e)
-		{
+			id = (Long) generate.parseJWT(token);
+
+		} catch (Exception e) {
 			throw new UserException("user does not exist");
-			
+
 		}
-		UserInformation user=repository.getUserById(id);
+		UserInformation user = repository.getUserById(id);
 		return null;
 	}
 }
