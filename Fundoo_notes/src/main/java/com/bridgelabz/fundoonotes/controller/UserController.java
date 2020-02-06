@@ -6,12 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.fundoonotes.entity.LoginInformation;
+import com.bridgelabz.fundoonotes.entity.PasswordUpdate;
 import com.bridgelabz.fundoonotes.entity.UserDto;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
 import com.bridgelabz.fundoonotes.response.Response;
@@ -79,5 +81,15 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.ACCEPTED)
 				.body(new Response("user does not exist with given email id", 400, email));
 
+	}
+	@PutMapping("user/update/{token}")
+	public ResponseEntity<Response> update(@PathVariable("token") String token,@RequestBody PasswordUpdate update)
+	{
+		boolean result=service.update(update, token);
+		if(result)
+		{
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("password updated successfully", 200, update));
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("password  does not match", 402, update));
 	}
 }
