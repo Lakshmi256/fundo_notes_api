@@ -1,5 +1,7 @@
 package com.bridgelabz.fundoonotes.service;
 
+import java.util.List;
+
 import com.bridgelabz.fundoonotes.entity.LoginInformation;
 import com.bridgelabz.fundoonotes.entity.PasswordUpdate;
 import com.bridgelabz.fundoonotes.entity.UserDto;
@@ -16,5 +18,9 @@ public interface Services {
 	boolean isUserExist(String email);
 
 	boolean update(PasswordUpdate information, String token);
+
+	List<UserInformation> getUsers();
+
+	UserInformation getsingleUser(String token);
 
 }

@@ -1,6 +1,7 @@
 package com.bridgelabz.fundoonotes.implementation;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -128,4 +129,26 @@ public class ServiceImplementation implements Services {
 		}
 	}
 
+	@Transactional
+	@Override
+	public List<UserInformation> getUsers() {
+		List<UserInformation> users = repository.getUsers();
+		UserInformation user = users.get(0);
+		return users;
+	}
+	@Transactional
+	@Override
+	public UserInformation getsingleUser(String token) {
+		Long id;
+		try {
+			id=(Long)generate.parseJWT(token);
+			
+		}catch (Exception e)
+		{
+			throw new UserException("user does not exist");
+			
+		}
+		UserInformation user=repository.getUserById(id);
+		return null;
+	}
 }
