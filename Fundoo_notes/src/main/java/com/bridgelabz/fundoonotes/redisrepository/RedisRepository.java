@@ -1,5 +1,7 @@
 package com.bridgelabz.fundoonotes.redisrepository;
 
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.bridgelabz.fundoonotes.entity.UserInformation;
