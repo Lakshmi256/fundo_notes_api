@@ -51,7 +51,7 @@ public class ServiceImplementation implements Services {
 			userInformation = repository.save(userInformation);
 			String mailResponse = response.fromMessage("http://localhost:8080/verify",
 					generate.jwtToken(userInformation.getUserId()));
-			
+
 			mailObject.setEmail(information.getEmail());
 			mailObject.setMessage(mailResponse);
 			mailObject.setSubject("verification");
@@ -86,18 +86,18 @@ public class ServiceImplementation implements Services {
 	public String generateToken(Long id) {
 		return generate.jwtToken(id);
 	}
+
 	@Transactional
-@Override
-public boolean update(PasswordUpdate information,String token) {
+	@Override
+	public boolean update(PasswordUpdate information, String token) {
 		Long id = null;
 		try {
-			id=(Long )generate.parseJWT(token);
-			String epassword =encryption.encode(information.getConfirmPassword());
+			id = (Long) generate.parseJWT(token);
+			String epassword = encryption.encode(information.getConfirmPassword());
 			information.setConfirmPassword(epassword);
 			return repository.upDate(information, id);
-			
-		}catch(Exception e)
-		{
+
+		} catch (Exception e) {
 			throw new UserException("invalid credentials");
 		}
 	}
