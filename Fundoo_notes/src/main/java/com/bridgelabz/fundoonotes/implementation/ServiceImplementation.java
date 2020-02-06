@@ -50,7 +50,7 @@ public class ServiceImplementation implements Services {
 			userInformation = repository.save(userInformation);
 			String mailResponse = response.fromMessage("http://localhost:8080/verify",
 					generate.jwtToken(userInformation.getUserId()));
-			System.out.println(mailResponse);
+			
 			mailObject.setEmail(information.getEmail());
 			mailObject.setMessage(mailResponse);
 			mailObject.setSubject("verification");

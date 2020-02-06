@@ -86,4 +86,4 @@ public class UserInformation {
 		this.createDate = createDate;
 	}
 
-}
+} 

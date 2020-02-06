@@ -38,12 +38,10 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.CREATED)
 					.body(new Response("registration succefull", 200, information));
 
-		} else {
-
-			return ResponseEntity.status(HttpStatus.ALREADY_REPORTED)
-					.body(new Response("user already ", 400, information));
-
 		}
+
+		return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(new Response("user already ", 400, information));
+
 	}
 
 	@PostMapping("user/login")
@@ -53,11 +51,8 @@ public class UserController {
 			String token = generate.jwtToken(userInformation.getUserId());
 			return ResponseEntity.status(HttpStatus.ACCEPTED).header("login succefull", information.getUsername())
 					.body(new UsersDetail(token, 200, information));
-		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(new UsersDetail("login failed ", 400, information));
-
 		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new UsersDetail("login failed ", 400, information));
 
 	}
 
@@ -68,10 +63,8 @@ public class UserController {
 		boolean update = service.verify(token);
 		if (update) {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("verified", 200, token));
-		} else {
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("not verified", 400, token));
-
 		}
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("not verified", 400, token));
 
 	}
 
@@ -82,10 +75,9 @@ public class UserController {
 		boolean result = service.isUserExist(email);
 		if (result) {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user exist", 200, email));
-		} else {
-			return ResponseEntity.status(HttpStatus.ACCEPTED)
-					.body(new Response("user does not exist with given email id", 400, email));
 		}
+		return ResponseEntity.status(HttpStatus.ACCEPTED)
+				.body(new Response("user does not exist with given email id", 400, email));
 
 	}
 }
