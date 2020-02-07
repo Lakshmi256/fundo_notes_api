@@ -15,16 +15,17 @@ import com.bridgelabz.fundoonotes.utility.JwtGenerator;
 @Service
 public class LabelServiceImplementation implements LabelService {
 
-private UserInformation user=new UserInformation();
-@Autowired
-private UserRepository userRepository;
-@Autowired
-private JwtGenerator tokenGenerator;
-@Autowired
-private ModelMapper modelMapper;
-@Transactional
-@Override
-public void createLabel(LabelDto label,String token) {
-	
-}
+	private UserInformation user = new UserInformation();
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private JwtGenerator tokenGenerator;
+	@Autowired
+	private ModelMapper modelMapper;
+
+	@Transactional
+	@Override
+	public void createLabel(LabelDto label, String token) {
+
+	}
 }
