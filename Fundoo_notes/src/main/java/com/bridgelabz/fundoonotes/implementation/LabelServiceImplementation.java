@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.bridgelabz.fundoonotes.entity.LabelDto;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
+import com.bridgelabz.fundoonotes.exception.UserException;
 import com.bridgelabz.fundoonotes.repository.UserRepository;
 import com.bridgelabz.fundoonotes.service.LabelService;
 import com.bridgelabz.fundoonotes.utility.JwtGenerator;
@@ -26,6 +27,17 @@ public class LabelServiceImplementation implements LabelService {
 	@Transactional
 	@Override
 	public void createLabel(LabelDto label, String token) {
-
+		Long id=null;
+		try {
+			id=(Long)tokenGenerator.parseJWT(token);
+			
+		}catch (Exception e) {
+			throw new UserException("user does not exist");
+			
+		}
+		UserInformation user=userRepository.getUserById(id);
+		if(user!=null) {
+			
+		}
 	}
 }
