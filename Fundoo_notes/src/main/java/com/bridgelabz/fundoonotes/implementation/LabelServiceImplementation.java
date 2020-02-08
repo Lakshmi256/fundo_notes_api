@@ -4,9 +4,11 @@ import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.bridgelabz.fundoonotes.entity.LabelDto;
+import com.bridgelabz.fundoonotes.entity.LabelInformation;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
 import com.bridgelabz.fundoonotes.exception.UserException;
 import com.bridgelabz.fundoonotes.repository.UserRepository;
@@ -37,6 +39,7 @@ public class LabelServiceImplementation implements LabelService {
 		}
 		UserInformation user=userRepository.getUserById(id);
 		if(user!=null) {
+			//LabelInformation labelInfo=repository.s
 			
 		}
 	}
