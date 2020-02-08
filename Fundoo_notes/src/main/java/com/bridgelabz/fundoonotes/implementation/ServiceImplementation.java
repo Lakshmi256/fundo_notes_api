@@ -59,7 +59,7 @@ public class ServiceImplementation implements Services {
 			MailServiceProvider.sendEmail(mailObject.getEmail(), mailObject.getSubject(), mailObject.getMessage());
 
 			return true;
-		} else
+		} 
 			throw new UserException("user already exists with the same mail id");
 	}
 
@@ -69,7 +69,7 @@ public class ServiceImplementation implements Services {
 		UserInformation user = repository.getUser(information.getUsername());
 		if (user != null) {
 
-			if ((user.isVerified() == true) && (encryption.matches(information.getPassword(), user.getPassword()))) {
+			if ((user.isVerified() ==true) && (encryption.matches(information.getPassword(), user.getPassword()))) {
 				System.out.println(generate.jwtToken(user.getUserId()));
 				return user;
 			} else {
