@@ -16,6 +16,14 @@ public class LabelInformation {
 	private String name;
 	private Long userId;
 
+	public int getLabelId() {
+		return labelId;
+	}
+
+	public void setLabelId(int labelId) {
+		this.labelId = labelId;
+	}
+
 	public String getName() {
 		return name;
 	}
