@@ -11,6 +11,7 @@ import com.bridgelabz.fundoonotes.entity.LabelDto;
 import com.bridgelabz.fundoonotes.entity.LabelInformation;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
 import com.bridgelabz.fundoonotes.exception.UserException;
+import com.bridgelabz.fundoonotes.repository.LabelRepository;
 import com.bridgelabz.fundoonotes.repository.UserRepository;
 import com.bridgelabz.fundoonotes.service.LabelService;
 import com.bridgelabz.fundoonotes.utility.JwtGenerator;
@@ -25,6 +26,8 @@ public class LabelServiceImplementation implements LabelService {
 	private JwtGenerator tokenGenerator;
 	@Autowired
 	private ModelMapper modelMapper;
+	@Autowired
+	private LabelRepository labelRepository;
 
 	@Transactional
 	@Override
@@ -39,8 +42,11 @@ public class LabelServiceImplementation implements LabelService {
 		}
 		UserInformation user=userRepository.getUserById(id);
 		if(user!=null) {
-			//LabelInformation labelInfo=repository.s
-			
+			LabelInformation labelInfo=labelRepository.fetchLabel(user.getUserId(), user.getName());
+			if (labelInfo==null)
+			{
+				
+			}
 		}
 	}
 }
