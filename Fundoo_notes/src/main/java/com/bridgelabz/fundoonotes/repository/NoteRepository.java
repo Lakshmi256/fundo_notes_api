@@ -1,6 +1,6 @@
 package com.bridgelabz.fundoonotes.repository;
 
-import com.bridgelabz.fundoonotes.dto.NoteInformation;
+import com.bridgelabz.fundoonotes.entity.NoteInformation;
 
 public interface NoteRepository {
 

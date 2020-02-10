@@ -7,7 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
-import com.bridgelabz.fundoonotes.dto.NoteInformation;
+import com.bridgelabz.fundoonotes.entity.NoteInformation;
+
 
 @Repository
 public class NoteRepositoryImplementation implements NoteRepository {
