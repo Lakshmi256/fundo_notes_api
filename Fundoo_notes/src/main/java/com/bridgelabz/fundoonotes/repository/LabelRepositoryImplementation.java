@@ -3,17 +3,18 @@ package com.bridgelabz.fundoonotes.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.hibernate.query.Query;
 import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Repository;
 
 import com.bridgelabz.fundoonotes.entity.LabelInformation;
 
 @Repository
 public class LabelRepositoryImplementation implements LabelRepository {
-	@Autowired
+	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Override
