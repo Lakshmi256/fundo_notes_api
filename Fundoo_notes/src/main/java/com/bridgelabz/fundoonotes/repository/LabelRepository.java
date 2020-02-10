@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bridgelabz.fundoonotes.entity.LabelInformation;
 
+
 public interface LabelRepository {
 
 	LabelInformation save(LabelInformation labelInformation);

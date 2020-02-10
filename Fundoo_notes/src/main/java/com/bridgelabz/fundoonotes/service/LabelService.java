@@ -1,6 +1,6 @@
 package com.bridgelabz.fundoonotes.service;
 
-import com.bridgelabz.fundoonotes.entity.LabelDto;
+import com.bridgelabz.fundoonotes.dto.LabelDto;
 
 public interface LabelService {
 

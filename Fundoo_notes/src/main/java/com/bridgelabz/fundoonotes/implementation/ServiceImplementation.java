@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.bridgelabz.fundoonotes.entity.LoginInformation;
-import com.bridgelabz.fundoonotes.entity.PasswordUpdate;
-import com.bridgelabz.fundoonotes.entity.UserDto;
+import com.bridgelabz.fundoonotes.dto.LoginInformation;
+import com.bridgelabz.fundoonotes.dto.PasswordUpdate;
+import com.bridgelabz.fundoonotes.dto.UserDto;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
 import com.bridgelabz.fundoonotes.exception.UserException;
 import com.bridgelabz.fundoonotes.repository.UserRepository;

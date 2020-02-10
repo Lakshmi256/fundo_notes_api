@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
-import com.bridgelabz.fundoonotes.entity.LabelDto;
+import com.bridgelabz.fundoonotes.dto.LabelDto;
 import com.bridgelabz.fundoonotes.entity.LabelInformation;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
 import com.bridgelabz.fundoonotes.exception.UserException;
@@ -44,7 +44,7 @@ public class LabelServiceImplementation implements LabelService {
 		}
 		UserInformation user = userRepository.getUserById(id);
 		if (user != null) {
-			LabelInformation labelInfo = labelRepository.fetchLabel(user.getUserId(), user.getName());
+			LabelInformation labelInfo = labelRepository.fetchLabel(user.getUserId(), label.getName());
 			if (labelInfo == null) {
 				labelInformation = modelMapper.map(label, LabelInformation.class);
 				labelInformation.getLabelId();

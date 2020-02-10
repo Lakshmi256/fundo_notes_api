@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bridgelabz.fundoonotes.entity.LabelInformation;
 
+
 @Repository
 public class LabelRepositoryImplementation implements LabelRepository {
 	@PersistenceContext

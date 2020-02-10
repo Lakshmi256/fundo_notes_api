@@ -1,4 +1,4 @@
-package com.bridgelabz.fundoonotes.entity;
+package com.bridgelabz.fundoonotes.dto;
 
 import org.springframework.stereotype.Component;
 
