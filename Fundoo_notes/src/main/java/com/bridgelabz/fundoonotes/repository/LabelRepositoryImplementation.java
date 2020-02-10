@@ -42,9 +42,8 @@ public class LabelRepositoryImplementation implements LabelRepository {
 
 	@Override
 	public int deleteLabel(Long i) {
-		String hq1 = "DELETE FROM LabelInformation" + "where label_id=:id";
 		Session session = entityManager.unwrap(Session.class);
-		Query query = session.createQuery(hq1);
+		Query query = session.createQuery("DELETE FROM LabelInformation" + "where label_id=:id");
 		query.setParameter("id", i);
 		int result = query.executeUpdate();
 		return result;
