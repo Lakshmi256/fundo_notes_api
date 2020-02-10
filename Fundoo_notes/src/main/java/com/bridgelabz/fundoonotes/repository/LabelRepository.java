@@ -8,4 +8,6 @@ public interface LabelRepository {
 
 	LabelInformation fetchLabel(Long userid, String labelname);
 
+	LabelInformation fetchLabelById(Long id);
+
 }
