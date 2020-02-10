@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.fundoonotes.dto.LoginInformation;
@@ -33,7 +32,8 @@ public class UserController {
 
 	@Autowired
 	private JwtGenerator generate;
-	/*API for registration*/
+
+	/* API for registration */
 	@PostMapping("/user/registration")
 	public ResponseEntity<Response> registration(@RequestBody UserDto information) {
 
@@ -48,7 +48,8 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(new Response("user already ", 400, information));
 
 	}
-	/*API for Login*/
+
+	/* API for Login */
 	@PostMapping("user/login")
 	public ResponseEntity<UsersDetail> login(@RequestBody LoginInformation information) {
 		UserInformation userInformation = service.login(information);
@@ -60,7 +61,8 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new UsersDetail("login failed ", 400, information));
 
 	}
-	/*API for for user verification*/
+
+	/* API for for user verification */
 	@GetMapping("verify/{token}")
 	public ResponseEntity<Response> userVerification(@PathVariable("token") String token) throws Exception {
 
@@ -72,7 +74,8 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("not verified", 400, token));
 
 	}
-	/*API for for forgot password*/
+
+	/* API for for forgot password */
 	@PostMapping("user/forgotpassword")
 	public ResponseEntity<Response> forgotPassword(@RequestParam("email") String email) {
 		System.out.println(email);
@@ -85,7 +88,8 @@ public class UserController {
 				.body(new Response("user does not exist with given email id", 400, email));
 
 	}
-	/*API for for updating password with token*/
+
+	/* API for for updating password with token */
 	@PutMapping("user/update/{token}")
 	public ResponseEntity<Response> update(@PathVariable("token") String token, @RequestBody PasswordUpdate update) {
 		boolean result = service.update(update, token);
@@ -96,13 +100,15 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 				.body(new Response("password  does not match", 402, update));
 	}
-	/*API for getting all user details*/
+
+	/* API for getting all user details */
 	@GetMapping("user/getusers")
 	public ResponseEntity<Response> getUsers() {
 		List<UserInformation> users = service.getUsers();
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("the users are", 200, users));
 	}
-	/*API for getting details of only one user*/
+
+	/* API for getting details of only one user */
 	@GetMapping("user/getoneuser")
 	public ResponseEntity<Response> getOneUser(@RequestHeader("token") String token) {
 		UserInformation user = service.getsingleUser(token);
