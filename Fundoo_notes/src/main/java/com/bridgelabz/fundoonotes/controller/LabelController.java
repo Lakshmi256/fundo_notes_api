@@ -16,7 +16,7 @@ import com.bridgelabz.fundoonotes.service.LabelService;
 public class LabelController {
 	@Autowired
 	private LabelService service;
-
+	/*API for creating label*/
 	@PostMapping("/label/create")
 	public ResponseEntity<Response> createLabel(@RequestBody LabelDto label, @RequestHeader("token") String token) {
 		service.createLabel(label, token);
