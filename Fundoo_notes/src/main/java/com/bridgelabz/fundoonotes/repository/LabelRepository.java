@@ -1,5 +1,7 @@
 package com.bridgelabz.fundoonotes.repository;
 
+import java.util.List;
+
 import com.bridgelabz.fundoonotes.entity.LabelInformation;
 
 public interface LabelRepository {
@@ -11,5 +13,9 @@ public interface LabelRepository {
 	LabelInformation fetchLabelById(Long id);
 
 	int deleteLabel(Long i);
+
+	List<LabelInformation> getAllLabel(Long id);
+
+	LabelInformation getLabel(Long id);
 
 }

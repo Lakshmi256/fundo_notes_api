@@ -1,5 +1,7 @@
 package com.bridgelabz.fundoonotes.repository;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import org.hibernate.query.Query;
@@ -9,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bridgelabz.fundoonotes.entity.LabelInformation;
 
-//@Repository
+@Repository
 public class LabelRepositoryImplementation implements LabelRepository {
 	@Autowired
 	private EntityManager entityManager;
@@ -24,7 +26,7 @@ public class LabelRepositoryImplementation implements LabelRepository {
 	@Override
 	public LabelInformation fetchLabel(Long userid, String labelname) {
 		Session session = entityManager.unwrap(Session.class);
-		Query q = session.createQuery("from LabelInfromation where user_id=:id and name=:name");
+		Query q = session.createQuery("from LabelInformation where user_id=:id and name=:name");
 		q.setParameter("id", userid);
 		q.setParameter("name", labelname);
 		return (LabelInformation) q.uniqueResult();
@@ -40,12 +42,25 @@ public class LabelRepositoryImplementation implements LabelRepository {
 
 	@Override
 	public int deleteLabel(Long i) {
-		String hq1 = "DELETE FROM LabelInfromation" + "where label_id=:id";
+		String hq1 = "DELETE FROM LabelInformation" + "where label_id=:id";
 		Session session = entityManager.unwrap(Session.class);
 		Query query = session.createQuery(hq1);
 		query.setParameter("id", i);
 		int result = query.executeUpdate();
 		return result;
+	}
+
+	@Override
+	public List<LabelInformation> getAllLabel(Long id) {
+		Session session = entityManager.unwrap(Session.class);
+		return session.createQuery("FROM LabelInformation WHERE user_Id='" + id + "'").getResultList();
+	}
+
+	@Override
+	public LabelInformation getLabel(Long id) {
+		Session session = entityManager.unwrap(Session.class);
+		return (LabelInformation) session.createQuery("FROM LabelInformation WHERE user_Id='" + id + "'")
+				.uniqueResult();
 	}
 
 }
