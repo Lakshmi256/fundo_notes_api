@@ -62,5 +62,4 @@ public class LabelRepositoryImplementation implements LabelRepository {
 		return (LabelInformation) session.createQuery("FROM LabelInformation WHERE user_Id='" + id + "'")
 				.uniqueResult();
 	}
-
 }
