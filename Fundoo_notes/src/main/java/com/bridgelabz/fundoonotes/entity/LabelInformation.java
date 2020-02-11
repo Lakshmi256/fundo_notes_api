@@ -13,7 +13,7 @@ import lombok.Data;
 @Table(name = "Label_Info")
 public class LabelInformation {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private int labelId;
 	private String name;
 	private Long userId;

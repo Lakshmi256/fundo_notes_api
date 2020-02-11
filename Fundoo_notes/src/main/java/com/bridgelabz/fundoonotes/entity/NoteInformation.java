@@ -15,7 +15,7 @@ import lombok.Data;
 @Table(name="Note_Info")
 public class NoteInformation {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	
 	private Long id;
 	

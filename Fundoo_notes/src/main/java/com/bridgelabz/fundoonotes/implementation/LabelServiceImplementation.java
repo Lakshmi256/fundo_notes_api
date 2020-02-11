@@ -47,9 +47,7 @@ public class LabelServiceImplementation implements LabelService {
 			LabelInformation labelInfo = labelRepository.fetchLabel(user.getUserId(), label.getName());
 			if (labelInfo == null) {
 				labelInformation = modelMapper.map(label, LabelInformation.class);
-				labelInformation.getLabelId();
-				labelInformation.getName();
-				labelInformation.setUserId(user.getUserId());
+				
 				labelRepository.save(labelInformation);
 			} else {
 				throw new UserException("label with that name is already present ");
