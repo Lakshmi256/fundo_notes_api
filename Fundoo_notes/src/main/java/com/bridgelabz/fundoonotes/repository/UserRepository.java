@@ -8,7 +8,7 @@ import com.bridgelabz.fundoonotes.entity.UserInformation;
 public interface UserRepository {
 	UserInformation save(UserInformation userInfromation);
 
-	UserInformation getUser(String email);
+	UserInformation getUser(String name);
 
 	UserInformation getUserById(Long id);
 

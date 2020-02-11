@@ -1,6 +1,7 @@
 package com.bridgelabz.fundoonotes.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,6 +30,8 @@ public class UserInformation {
 
 	private boolean isVerified;
 	private LocalDateTime createDate;
+	
+	private List<NoteInformation> note;
 
 	public long getUserId() {
 		return userId;
@@ -84,6 +87,14 @@ public class UserInformation {
 
 	public void setCreateDate(LocalDateTime createDate) {
 		this.createDate = createDate;
+	}
+
+	public List<NoteInformation> getNote() {
+		return note;
+	}
+
+	public void setNote(List<NoteInformation> note) {
+		this.note = note;
 	}
 
 } 
