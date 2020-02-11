@@ -70,4 +70,16 @@ public class NoteRepositoryImplementation implements NoteRepository {
 		return list;
 	}
 
+	@Override
+	public boolean updateColor(Long id, Long userid, String color) {
+		Session session = entityManager.unwrap(Session.class);
+		Query query = session.createQuery("update NoteInformation u set u.colour=:colour" + "where u.id=;id");
+		query.setParameter("colour", color);
+		int result = query.executeUpdate();
+		if (result >= 1) {
+			return true;
+		}
+		return false;
+	}
+
 }

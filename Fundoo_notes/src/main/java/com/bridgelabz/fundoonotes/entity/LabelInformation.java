@@ -13,16 +13,16 @@ import lombok.Data;
 @Table(name = "Label_Info")
 public class LabelInformation {
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	private int labelId;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long labelId;
 	private String name;
 	private Long userId;
 
-	public int getLabelId() {
+	public Long getLabelId() {
 		return labelId;
 	}
 
-	public void setLabelId(int labelId) {
+	public void setLabelId(Long labelId) {
 		this.labelId = labelId;
 	}
 

@@ -18,4 +18,6 @@ public interface NoteRepository {
 
 	List<NoteInformation> getArchievedNotes(Long userid);
 
+	boolean updateColor(Long id, Long userid, String color);
+
 }
