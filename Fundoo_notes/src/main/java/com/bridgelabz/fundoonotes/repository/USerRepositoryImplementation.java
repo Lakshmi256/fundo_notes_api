@@ -76,7 +76,7 @@ public class USerRepositoryImplementation implements UserRepository {
 	@Override
 	public List<UserInformation> getUsers() {
 		Session currentSession = entityManager.unwrap(Session.class);
-		List<UserInformation> usersList = currentSession.createQuery("from UserInformation").getResultList();
+		List usersList = currentSession.createQuery("from UserInformation").getResultList();
 		return usersList;
 	}
 
