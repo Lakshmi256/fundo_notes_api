@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.bridgelabz.fundoonotes.entity.NoteInformation;
 
-
 @Repository
 public class NoteRepositoryImplementation implements NoteRepository {
 	@PersistenceContext
@@ -30,4 +29,15 @@ public class NoteRepositoryImplementation implements NoteRepository {
 		return (NoteInformation) q.uniqueResult();
 	}
 
+	@Override
+	public boolean deleteNote(Long id, Long userid) {
+		Session session = entityManager.unwrap(Session.class);
+		Query query = session.createQuery("DELETE FROM NoteInformation" + "WHERE id=:id").setParameter("id", id);
+		int result = query.executeUpdate();
+		if (result >= 1) {
+			return true;
+
+		}
+		return false;
+	}
 }

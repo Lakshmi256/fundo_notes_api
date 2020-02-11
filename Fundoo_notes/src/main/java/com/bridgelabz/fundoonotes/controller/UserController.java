@@ -49,7 +49,7 @@ public class UserController {
 
 	}
 
-	/* API for Login */
+	/*API for Login */
 	@PostMapping("user/login")
 	public ResponseEntity<UsersDetail> login(@RequestBody LoginInformation information) {
 		UserInformation userInformation = service.login(information);
@@ -66,7 +66,6 @@ public class UserController {
 	@GetMapping("verify/{token}")
 	public ResponseEntity<Response> userVerification(@PathVariable("token") String token) throws Exception {
 
-		System.out.println("token for verification" + token);
 		boolean update = service.verify(token);
 		if (update) {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("verified", 200, token));

@@ -8,4 +8,6 @@ public interface NoteRepository {
 
 	NoteInformation findById(Long id);
 
+	boolean deleteNote(Long id, Long userid);
+
 }
