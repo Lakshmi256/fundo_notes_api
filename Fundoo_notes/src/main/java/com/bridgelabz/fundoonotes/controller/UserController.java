@@ -49,7 +49,7 @@ public class UserController {
 
 	}
 
-	/*API for Login */
+	/* API for Login */
 	@PostMapping("user/login")
 	public ResponseEntity<UsersDetail> login(@RequestBody LoginInformation information) {
 		UserInformation userInformation = service.login(information);

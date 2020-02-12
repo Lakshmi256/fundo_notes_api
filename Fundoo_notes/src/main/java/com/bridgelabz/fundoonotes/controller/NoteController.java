@@ -3,6 +3,7 @@ package com.bridgelabz.fundoonotes.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,15 +22,35 @@ public class NoteController {
 	@Autowired
 	private NoteService service;
 
+	/* API for creating a Note */
 	@PostMapping("/note/create")
 	public ResponseEntity<Response> create(@RequestBody NoteDto information, @RequestHeader("token") String token) {
 		service.createNote(information, token);
 		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created", 200, information));
 	}
 
+	/* API for updating a Note */
 	@PutMapping("/note/update")
 	public ResponseEntity<Response> update(@RequestBody NoteUpdation note, @RequestHeader("token") String token) {
 		service.updateNote(note, token);
 		return ResponseEntity.status(HttpStatus.OK).body(new Response("note updated ", 201, note));
+	}
+
+	@PutMapping("/note/pin/{id}")
+	public ResponseEntity<Response> pin(@PathVariable Long id, @RequestHeader("token") String token) {
+		service.pinNote(id, token);
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note pined", 200));
+	}
+
+	@PutMapping("/note/archieve/{id}")
+	public ResponseEntity<Response> archieve(@PathVariable Long id, @RequestHeader("token") String token) {
+		service.archieveNote(id, token);
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note archieved", 200));
+	}
+
+	@PutMapping("/note/delete/{id}")
+	public ResponseEntity<Response> delete(@PathVariable Long id, @RequestHeader("token") String token) {
+		service.deleteNote(id, token);
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note deleted", 200));
 	}
 }

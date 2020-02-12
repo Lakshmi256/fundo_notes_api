@@ -14,6 +14,11 @@ public class Response {
 		this.obj = obj;
 	}
 
+	public Response(String message, int statusCode) {
+		this.message = message;
+		this.statuscode = statusCode;
+	}
+
 	public String getMessage() {
 		return message;
 	}

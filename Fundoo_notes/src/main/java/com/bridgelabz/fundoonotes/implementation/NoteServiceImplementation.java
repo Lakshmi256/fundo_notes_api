@@ -78,4 +78,58 @@ public class NoteServiceImplementation implements NoteService {
 			throw new UserException("user is not present");
 		}
 	}
+
+	@Transactional
+	@Override
+	public void deleteNote(Long id, String token) {
+		try {
+
+			Long userid = (Long) tokenGenerator.parseJWT(token);
+
+			user = repository.getUserById(userid);
+			NoteInformation note = noteRepository.findById(id);
+			if (note != null) {
+				note.setTrashed(!note.isTrashed());
+				noteRepository.save(note);
+			}
+		} catch (Exception e) {
+			throw new UserException("user is not present");
+		}
+	}
+
+	@Transactional
+	@Override
+	public void archieveNote(Long id, String token) {
+		try {
+
+			Long userid = (Long) tokenGenerator.parseJWT(token);
+
+			user = repository.getUserById(userid);
+			NoteInformation note = noteRepository.findById(id);
+			if (note != null) {
+				note.setArchieved(!note.isArchieved());
+				noteRepository.save(note);
+			}
+		} catch (Exception e) {
+			throw new UserException("user is not present");
+		}
+	}
+
+	@Transactional
+	@Override
+	public void pinNote(Long id, String token) {
+		try {
+
+			Long userid = (Long) tokenGenerator.parseJWT(token);
+
+			user = repository.getUserById(userid);
+			NoteInformation note = noteRepository.findById(id);
+			if (note != null) {
+				note.setPinned(!note.isPinned());
+				noteRepository.save(note);
+			}
+		} catch (Exception e) {
+			throw new UserException("user is not present");
+		}
+	}
 }

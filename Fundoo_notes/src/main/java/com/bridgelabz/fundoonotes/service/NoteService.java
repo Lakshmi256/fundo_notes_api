@@ -9,4 +9,10 @@ public interface NoteService {
 
 	void updateNote(NoteUpdation information, String token);
 
+	void deleteNote(Long id, String token);
+
+	void archieveNote(Long id, String token);
+
+	void pinNote(Long id, String token);
+
 }
