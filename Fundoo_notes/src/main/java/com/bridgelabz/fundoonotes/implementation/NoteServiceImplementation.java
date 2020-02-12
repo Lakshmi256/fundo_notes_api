@@ -54,16 +54,16 @@ public class NoteServiceImplementation implements NoteService {
 			throw new UserException("user is not present with given id");
 		}
 	}
+
 	@Transactional
 	@Override
-	public void updateNote(NoteUpdation information,String token) {
+	public void updateNote(NoteUpdation information, String token) {
 		try {
-			Long userid=(Long)tokenGenerator.parseJWT(token);
-			
-			user=repository.getUserById(userid);
-			NoteInformation note=noteRepository.findById(information.getId());
-			if (note!=null)
-			{
+			Long userid = (Long) tokenGenerator.parseJWT(token);
+
+			user = repository.getUserById(userid);
+			NoteInformation note = noteRepository.findById(information.getId());
+			if (note != null) {
 				note.setId(information.getId());
 				note.setDescription(information.getDescription());
 				note.setTitle(information.getTitle());
@@ -71,8 +71,8 @@ public class NoteServiceImplementation implements NoteService {
 				note.setTrashed(information.isTrashed());
 				note.setArchieved(information.isArchieved());
 				note.setUpDateAndTime(information.getUpDateAndTime());
-				NoteInformation note1=noteRepository.save(note);
-				
+				NoteInformation note1 = noteRepository.save(note);
+
 			}
 		} catch (Exception e) {
 			throw new UserException("user is not present");

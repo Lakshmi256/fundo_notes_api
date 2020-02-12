@@ -30,6 +30,6 @@ public class NoteController {
 	@PutMapping("/note/update")
 	public ResponseEntity<Response> update(@RequestBody NoteUpdation note, @RequestHeader("token") String token) {
 		service.updateNote(note, token);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("note updated ", 200, note));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("note updated ", 201, note));
 	}
 }
