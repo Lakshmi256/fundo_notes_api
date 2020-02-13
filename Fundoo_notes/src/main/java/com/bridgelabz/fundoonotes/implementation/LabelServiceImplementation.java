@@ -1,5 +1,7 @@
 package com.bridgelabz.fundoonotes.implementation;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
@@ -153,5 +155,25 @@ public class LabelServiceImplementation implements LabelService {
 		} else {
 			throw new UserException("user does not exist");
 		}
+	}
+
+	@Override
+	public List<LabelInformation> getLabel(String token) {
+		Long id = null;
+		try {
+			id = (Long) tokenGenerator.parseJWT(token);
+
+		} catch (Exception e) {
+			throw new UserException("user does not exist");
+
+		}
+		List<LabelInformation> labels = labelRepository.getAllLabel(id);
+		return labels;
+	}
+	@Override
+	public List<NoteInformation> getAllNotes(String token ,Long labelId){
+		LabelInformation label=labelRepository.getLabel(labelId);
+		List<NoteInformation> list = label.getList();
+		return list;
 	}
 }
