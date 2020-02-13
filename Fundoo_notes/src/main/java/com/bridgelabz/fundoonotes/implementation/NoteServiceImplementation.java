@@ -159,4 +159,19 @@ public class NoteServiceImplementation implements NoteService {
 		return false;
 	}
 
+	@Transactional
+	@Override
+	public List<NoteInformation> getAllNotes(String token) {
+		try {
+			Long userid = (Long) tokenGenerator.parseJWT(token);
+			user = repository.getUserById(userid);
+			if (user != null) {
+				List<NoteInformation> list = noteRepository.getNotes(userid);
+				return list;
+			}
+			throw new UserException("note does not exist");
+		} catch (Exception e) {
+			throw new UserException("error occured");
+		}
+	}
 }
