@@ -109,6 +109,7 @@ public class NoteServiceImplementation implements NoteService {
 			user = repository.getUserById(userid);
 			NoteInformation note = noteRepository.findById(id);
 			if (note != null) {
+				note.setPinned(false);
 				note.setArchieved(!note.isArchieved());
 				noteRepository.save(note);
 			}
@@ -127,6 +128,7 @@ public class NoteServiceImplementation implements NoteService {
 			user = repository.getUserById(userid);
 			NoteInformation note = noteRepository.findById(id);
 			if (note != null) {
+				note.setArchieved(false);
 				note.setPinned(!note.isPinned());
 				noteRepository.save(note);
 			}
