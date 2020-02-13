@@ -100,7 +100,7 @@ public class NoteController {
 	}
 
 	/* API for getting all Pinned Notes */
-	@GetMapping("/note/gettrashed/{id}")
+	@GetMapping("/note/getPinned/{id}")
 	public ResponseEntity<Response> getPinned(@RequestHeader("token") String token) {
 		List<NoteInformation> list = service.getPinneded(token);
 		return ResponseEntity.status(HttpStatus.OK).body(new Response(" trashed notes", 200, list));
