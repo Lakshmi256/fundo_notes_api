@@ -35,6 +35,14 @@ public class LabelInformation {
 
 	private List<NoteInformation> list;
 
+	public List<NoteInformation> getList() {
+		return list;
+	}
+
+	public void setList(List<NoteInformation> list) {
+		this.list = list;
+	}
+
 	public Long getLabelId() {
 		return labelId;
 	}

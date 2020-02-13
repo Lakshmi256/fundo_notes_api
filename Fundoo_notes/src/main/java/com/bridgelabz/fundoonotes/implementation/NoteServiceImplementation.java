@@ -1,6 +1,7 @@
 package com.bridgelabz.fundoonotes.implementation;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.bridgelabz.fundoonotes.dto.NoteDto;
 import com.bridgelabz.fundoonotes.dto.NoteUpdation;
+import com.bridgelabz.fundoonotes.entity.LabelInformation;
 import com.bridgelabz.fundoonotes.entity.NoteInformation;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
 import com.bridgelabz.fundoonotes.exception.UserException;
@@ -132,4 +134,29 @@ public class NoteServiceImplementation implements NoteService {
 			throw new UserException("user is not present");
 		}
 	}
+
+	@Transactional
+	@Override
+	public boolean deleteNotePermanently(Long id, String token) {
+		try {
+			Long userid = (Long) tokenGenerator.parseJWT(token);
+			user = repository.getUserById(userid);
+			NoteInformation note = noteRepository.findById(id);
+			if (note != null) {
+				List<LabelInformation> labels = note.getList();
+				if (labels != null) {
+					labels.clear();
+
+				}
+				noteRepository.deleteNote(id, userid);
+
+			} else {
+				throw new UserException("note is not present");
+			}
+		} catch (Exception e) {
+			throw new UserException("user is not present");
+		}
+		return false;
+	}
+
 }

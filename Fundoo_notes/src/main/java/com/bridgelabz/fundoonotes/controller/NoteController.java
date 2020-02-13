@@ -3,6 +3,7 @@ package com.bridgelabz.fundoonotes.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -48,9 +49,15 @@ public class NoteController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note archieved", 200));
 	}
 
-	@PutMapping("/note/delete/{id}")
+	@DeleteMapping("/note/delete/{id}")
 	public ResponseEntity<Response> delete(@PathVariable Long id, @RequestHeader("token") String token) {
 		service.deleteNote(id, token);
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note deleted", 200));
+	}
+
+	@DeleteMapping("/note/deletepermanentally/{id}")
+	public ResponseEntity<Response> deletepermanentally(@PathVariable Long id, @RequestHeader("token") String token) {
+		service.deleteNotePermanently(id, token);
 		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note deleted", 200));
 	}
 }

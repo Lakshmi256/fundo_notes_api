@@ -56,6 +56,14 @@ public class NoteInformation {
 
 	private List<LabelInformation> list;
 
+	public List<LabelInformation> getList() {
+		return list;
+	}
+
+	public void setList(List<LabelInformation> list) {
+		this.list = list;
+	}
+
 	public Long getId() {
 		return id;
 	}
