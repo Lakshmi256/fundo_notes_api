@@ -1,8 +1,14 @@
 package com.bridgelabz.fundoonotes.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class PasswordUpdate {
+	@NotNull
 	private String email;
+	@NotBlank
 	private String newPassword;
+	@NotBlank
 	private String confirmPassword;
 
 	public String getEmail() {

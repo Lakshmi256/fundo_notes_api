@@ -1,7 +1,11 @@
 package com.bridgelabz.fundoonotes.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class NoteDto {
+	@NotNull
 	private String title;
+	@NotNull
 	private String description;
 
 	public String getTitle() {

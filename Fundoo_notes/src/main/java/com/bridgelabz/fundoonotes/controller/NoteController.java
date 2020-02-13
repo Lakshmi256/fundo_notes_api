@@ -116,7 +116,7 @@ public class NoteController {
 	}
 
 	/* API for removing remainder Notes */
-	@GetMapping("/note/addremainder/{id}")
+	@GetMapping("/note/removeRemainder/{id}")
 	public ResponseEntity<Response> removeRemainder(@RequestHeader("token") String token,
 			@RequestParam("noteId") Long noteId, @RequestBody RemainderDto remainder) {
 		service.removeRemainder(noteId, token, remainder);

@@ -1,7 +1,12 @@
 package com.bridgelabz.fundoonotes.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class LabelUpdate {
+	
+	@NotNull
 	private Long labelId;
+	@NotNull
 	private String labelName;
 
 	public String getLabelName() {
