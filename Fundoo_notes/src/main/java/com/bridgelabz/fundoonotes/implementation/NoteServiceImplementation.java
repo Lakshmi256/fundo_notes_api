@@ -233,4 +233,22 @@ public class NoteServiceImplementation implements NoteService {
 		}
 	}
 
+	@Transactional
+	@Override
+	public List<NoteInformation> getPinneded(String token) {
+		try {
+			Long userId = (Long) tokenGenerator.parseJWT(token);
+			user = repository.getUserById(userId);
+			if (user != null) {
+				List<NoteInformation> list = noteRepository.getPinnededNotes(userId);
+				return list;
+			} else {
+				throw new UserException("user does not exist");
+			}
+
+		} catch (Exception e) {
+			throw new UserException("error occured");
+		}
+	}
+
 }

@@ -70,6 +70,15 @@ public class NoteRepositoryImplementation implements NoteRepository {
 		return list;
 	}
 
+	@Transactional
+	@Override
+	public List<NoteInformation> getPinnededNotes(Long userid) {
+		Session session = entityManager.unwrap(Session.class);
+		List list = session.createQuery("from NoteInformation where user_Id='" + userid + "'" + "and is_Pinned=true")
+				.getResultList();
+		return list;
+	}
+
 	@Override
 	public boolean updateColor(Long id, Long userid, String color) {
 		Session session = entityManager.unwrap(Session.class);

@@ -20,4 +20,6 @@ public interface NoteRepository {
 
 	boolean updateColor(Long id, Long userid, String color);
 
+	List<NoteInformation> getPinnededNotes(Long userid);
+
 }

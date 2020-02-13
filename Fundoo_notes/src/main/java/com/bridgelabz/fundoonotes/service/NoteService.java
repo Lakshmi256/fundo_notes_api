@@ -28,6 +28,6 @@ public interface NoteService {
 
 	void addColour(Long noteId, String token, String colour);
 
-	
+	List<NoteInformation> getPinneded(String token);
 
 }

@@ -62,14 +62,14 @@ public class NoteController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note deleted", 200));
 	}
 
-	/* API for permanentally deleting a Note */
+	/* API for permanently deleting a Note */
 	@DeleteMapping("/note/deletepermanentally/{id}")
 	public ResponseEntity<Response> deletePermanentally(@PathVariable Long id, @RequestHeader("token") String token) {
 		service.deleteNotePermanently(id, token);
 		return ResponseEntity.status(HttpStatus.OK).body(new Response("note deleted", 200));
 	}
 
-	/* API for updating colour to a Note */
+	/* API for updating color to a Note */
 	@PostMapping("/note/addcolour")
 	public ResponseEntity<Response> addColour(@RequestParam("noteId") Long noteId,
 			@RequestParam("colour") String colour, @RequestHeader("token") String token) {
@@ -98,4 +98,12 @@ public class NoteController {
 		List<NoteInformation> list = service.getAllNotes(token);
 		return ResponseEntity.status(HttpStatus.OK).body(new Response(" All notes", 200, list));
 	}
+
+	/* API for getting all Pinned Notes */
+	@GetMapping("/note/gettrashed/{id}")
+	public ResponseEntity<Response> getPinned(@RequestHeader("token") String token) {
+		List<NoteInformation> list = service.getPinneded(token);
+		return ResponseEntity.status(HttpStatus.OK).body(new Response(" trashed notes", 200, list));
+	}
+
 }
