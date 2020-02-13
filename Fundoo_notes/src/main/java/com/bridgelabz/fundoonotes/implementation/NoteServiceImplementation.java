@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.bridgelabz.fundoonotes.dto.NoteDto;
 import com.bridgelabz.fundoonotes.dto.NoteUpdation;
+import com.bridgelabz.fundoonotes.dto.RemainderDto;
 import com.bridgelabz.fundoonotes.entity.LabelInformation;
 import com.bridgelabz.fundoonotes.entity.NoteInformation;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
@@ -246,6 +247,46 @@ public class NoteServiceImplementation implements NoteService {
 				return list;
 			} else {
 				throw new UserException("user does not exist");
+			}
+
+		} catch (Exception e) {
+			throw new UserException("error occured");
+		}
+	}
+
+	@Transactional
+	@Override
+	public void addRemainder(Long noteid, String token, RemainderDto remainder) {
+		try {
+			Long userid = (Long) tokenGenerator.parseJWT(token);
+			user = repository.getUserById(userid);
+			NoteInformation note = noteRepository.findById(noteid);
+			if (note != null) {
+				note.setReminder(remainder.getRemainder());
+				noteRepository.save(note);
+
+			} else {
+				throw new UserException("note does not exist");
+			}
+
+		} catch (Exception e) {
+			throw new UserException("error occured");
+		}
+	}
+
+	@Transactional
+	@Override
+	public void removeRemainder(Long noteid, String token, RemainderDto remainder) {
+		try {
+			Long userid = (Long) tokenGenerator.parseJWT(token);
+			user = repository.getUserById(userid);
+			NoteInformation note = noteRepository.findById(noteid);
+			if (note != null) {
+				note.setReminder(null);
+				noteRepository.save(note);
+
+			} else {
+				throw new UserException("note does not exist");
 			}
 
 		} catch (Exception e) {

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.fundoonotes.dto.NoteDto;
 import com.bridgelabz.fundoonotes.dto.NoteUpdation;
+import com.bridgelabz.fundoonotes.dto.RemainderDto;
 import com.bridgelabz.fundoonotes.entity.NoteInformation;
 import com.bridgelabz.fundoonotes.response.Response;
 import com.bridgelabz.fundoonotes.service.NoteService;
@@ -106,4 +107,19 @@ public class NoteController {
 		return ResponseEntity.status(HttpStatus.OK).body(new Response(" trashed notes", 200, list));
 	}
 
+	/* API for adding remainder to Notes */
+	@GetMapping("/note/addremainder/{id}")
+	public ResponseEntity<Response> addRemainder(@RequestHeader("token") String token,
+			@RequestParam("noteId") Long noteId, @RequestBody RemainderDto remainder) {
+		service.addRemainder(noteId, token, remainder);
+		return ResponseEntity.status(HttpStatus.OK).body(new Response(" trashed notes", 200));
+	}
+
+	/* API for removing remainder Notes */
+	@GetMapping("/note/addremainder/{id}")
+	public ResponseEntity<Response> removeRemainder(@RequestHeader("token") String token,
+			@RequestParam("noteId") Long noteId, @RequestBody RemainderDto remainder) {
+		service.removeRemainder(noteId, token, remainder);
+		return ResponseEntity.status(HttpStatus.OK).body(new Response(" trashed notes", 200));
+	}
 }
