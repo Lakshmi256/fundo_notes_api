@@ -22,4 +22,12 @@ public interface NoteService {
 
 	List<NoteInformation> getAllNotes(String token);
 
+	List<NoteInformation> gettrashednotes(String token);
+
+	List<NoteInformation> getarchieved(String token);
+
+	void addColour(Long noteId, String token, String colour);
+
+	
+
 }

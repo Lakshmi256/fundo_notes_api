@@ -73,7 +73,7 @@ public class NoteServiceImplementation implements NoteService {
 				note.setTrashed(information.isTrashed());
 				note.setArchieved(information.isArchieved());
 				note.setUpDateAndTime(information.getUpDateAndTime());
-				NoteInformation note1 = noteRepository.save(note);
+				noteRepository.save(note);
 
 			}
 		} catch (Exception e) {
@@ -169,9 +169,68 @@ public class NoteServiceImplementation implements NoteService {
 				List<NoteInformation> list = noteRepository.getNotes(userid);
 				return list;
 			}
-			throw new UserException("note does not exist");
+			throw new UserException("user does not exist");
 		} catch (Exception e) {
 			throw new UserException("error occured");
 		}
 	}
+
+	@Transactional
+	@Override
+	public List<NoteInformation> gettrashednotes(String token) {
+		try {
+			Long userId = (Long) tokenGenerator.parseJWT(token);
+			user = repository.getUserById(userId);
+			if (user != null) {
+				List<NoteInformation> list = noteRepository.getTrashedNotes(userId);
+				return list;
+			} else {
+				throw new UserException("user does not exist");
+			}
+
+		} catch (Exception e) {
+			throw new UserException("error occured");
+		}
+	}
+
+	@Transactional
+	@Override
+	public List<NoteInformation> getarchieved(String token) {
+		try {
+			Long userId = (Long) tokenGenerator.parseJWT(token);
+			user = repository.getUserById(userId);
+			if (user != null) {
+				List<NoteInformation> list = noteRepository.getArchievedNotes(userId);
+				return list;
+			} else {
+				throw new UserException("user does not exist");
+			}
+
+		} catch (Exception e) {
+			throw new UserException("error occured");
+		}
+	}
+
+	@Transactional
+	@Override
+	public void addColour(Long noteId, String token, String colour) {
+		try {
+			Long userId = (Long) tokenGenerator.parseJWT(token);
+			user = repository.getUserById(userId);
+			if (user != null) {
+				NoteInformation note = noteRepository.findById(noteId);
+				if (note != null) {
+					note.setColour(colour);
+					noteRepository.save(note);
+				} else {
+					throw new UserException("note does not exist");
+				}
+			} else {
+				throw new UserException("user does not exists");
+			}
+		} catch (Exception e) {
+			throw new UserException("error occured");
+		}
+	}
+
 }
