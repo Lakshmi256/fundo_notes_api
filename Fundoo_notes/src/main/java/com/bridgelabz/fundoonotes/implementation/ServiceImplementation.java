@@ -1,4 +1,5 @@
 package com.bridgelabz.fundoonotes.implementation;
+
 /*
  * author:Lakshmi Prasad A
  */
@@ -68,7 +69,7 @@ public class ServiceImplementation implements Services {
 	@Transactional
 	@Override
 	public UserInformation login(LoginInformation information) {
-		UserInformation user = repository.getUser(information.getUsername());
+		UserInformation user = repository.getUser(information.getEmail());
 		if (user != null) {
 
 			if ((user.isVerified() == true) && (encryption.matches(information.getPassword(), user.getPassword()))) {
@@ -77,7 +78,7 @@ public class ServiceImplementation implements Services {
 			} else {
 				String mailResposne = response.fromMessage("http://localhost:8080/verify",
 						generate.jwtToken(user.getUserId()));
-				MailServiceProvider.sendEmail(information.getUsername(), "verification", mailResposne);
+				MailServiceProvider.sendEmail(information.getEmail(), "verification", mailResposne);
 				return null;
 			}
 		} else {

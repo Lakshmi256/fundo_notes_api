@@ -57,7 +57,7 @@ public class UserController {
 		UserInformation userInformation = service.login(information);
 		if (userInformation != null) {
 			String token = generate.jwtToken(userInformation.getUserId());
-			return ResponseEntity.status(HttpStatus.ACCEPTED).header("login succefull", information.getUsername())
+			return ResponseEntity.status(HttpStatus.ACCEPTED).header("login succefull", information.getEmail())
 					.body(new UsersDetail(token, 200, information));
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new UsersDetail("login failed ", 400, information));
