@@ -1,5 +1,7 @@
 package com.bridgelabz.fundoonotes.repository;
-
+/*
+ * author:Lakshmi Prasad A
+ */
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -25,10 +27,10 @@ public class USerRepositoryImplementation implements UserRepository {
 	}
 
 	@Override
-	public UserInformation getUser(String name) {
+	public UserInformation getUser(String email) {
 		Session session = entityManager.unwrap(Session.class);
-		Query q = session.createQuery("FROM UserInformation where name=:name");
-		q.setParameter("name", name);
+		Query q = session.createQuery("FROM UserInformation where email=:email");
+		q.setParameter("email", email);
 		return (UserInformation) q.uniqueResult();
 	}
 

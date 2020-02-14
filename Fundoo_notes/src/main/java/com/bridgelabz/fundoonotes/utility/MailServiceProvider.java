@@ -1,5 +1,7 @@
 package com.bridgelabz.fundoonotes.utility;
-
+/*
+ * author:Lakshmi Prasad A
+ */
 import java.util.Properties;
 
 import javax.mail.Authenticator;

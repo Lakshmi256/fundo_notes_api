@@ -1,5 +1,7 @@
 package com.bridgelabz.fundoonotes.utility;
-
+/*
+ * author:Lakshmi Prasad A
+ */
 public class Gmaildetails {
 	private String email="lp268742@gmail.com";
 	private String password="maruthi123";

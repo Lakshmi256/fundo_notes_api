@@ -1,5 +1,7 @@
 package com.bridgelabz.fundoonotes.entity;
-
+/*
+ * author:Lakshmi Prasad A
+ */
 import java.util.List;
 
 import javax.persistence.CascadeType;
