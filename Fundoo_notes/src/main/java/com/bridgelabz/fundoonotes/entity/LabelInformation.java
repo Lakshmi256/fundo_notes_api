@@ -1,4 +1,5 @@
 package com.bridgelabz.fundoonotes.entity;
+
 /*
  * author:Lakshmi Prasad A
  */
@@ -23,17 +24,15 @@ import lombok.Data;
 @Table(name = "Label_Info")
 public class LabelInformation {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long labelId;
 	private String name;
 	private Long userId;
 
 	@ManyToMany(cascade = CascadeType.ALL)
 
-	@JoinTable(name = "Label_Note", joinColumns = { @JoinColumn(name = "Label_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "note_id") })
-
-	@JsonBackReference
+	@JoinTable(name = "Label_Note", joinColumns = { @JoinColumn(name = "label_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "id") })
 
 	private List<NoteInformation> list;
 

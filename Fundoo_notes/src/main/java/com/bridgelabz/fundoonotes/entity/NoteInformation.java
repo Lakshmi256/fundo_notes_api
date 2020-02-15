@@ -1,4 +1,5 @@
 package com.bridgelabz.fundoonotes.entity;
+
 /*
  * author:Lakshmi Prasad A
  */
@@ -25,7 +26,7 @@ import lombok.Data;
 @Table(name = "Note_Info")
 public class NoteInformation {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 	private Long id;
 
@@ -49,14 +50,15 @@ public class NoteInformation {
 
 	@ManyToMany(cascade = CascadeType.ALL)
 
-	@JoinTable(name = "Label_note", joinColumns = { @JoinColumn(name = "note_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "Label_id") })
-
-	@JsonBackReference
-
-	@JsonIgnore
+	@JoinTable(name = "Label_note", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = {
+			@JoinColumn(name = "label_id") })
 
 	private List<LabelInformation> list;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "Collaborator_Note", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = {
+			@JoinColumn(name = "user_id") })
+
+	private List<LabelInformation> colabUser;
 
 	public List<LabelInformation> getList() {
 		return list;
@@ -144,5 +146,13 @@ public class NoteInformation {
 
 	public void setReminder(LocalDateTime reminder) {
 		this.reminder = reminder;
+	}
+
+	public List<LabelInformation> getColabUser() {
+		return colabUser;
+	}
+
+	public void setColabUser(List<LabelInformation> colabUser) {
+		this.colabUser = colabUser;
 	}
 }

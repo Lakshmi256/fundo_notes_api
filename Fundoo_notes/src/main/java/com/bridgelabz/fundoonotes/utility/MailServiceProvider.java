@@ -14,7 +14,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
@@ -22,10 +22,6 @@ import org.springframework.stereotype.Component;
 public class MailServiceProvider {
 	@Autowired
 	private static JavaMailSender javaMailSender;
-	@Value("${email}")
-	private String email;
-	@Value("${password}")
-	private String password;
 
 	public static void sendEmail(String toEmail, String subject, String body) {
 
