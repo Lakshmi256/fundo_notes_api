@@ -1,4 +1,5 @@
 package com.bridgelabz.fundoonotes.utility;
+
 /*
  * author:Lakshmi Prasad A
  */
@@ -13,6 +14,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
@@ -20,11 +22,15 @@ import org.springframework.stereotype.Component;
 public class MailServiceProvider {
 	@Autowired
 	private static JavaMailSender javaMailSender;
+	@Value("${email}")
+	private String email;
+	@Value("${password}")
+	private String password;
 
 	public static void sendEmail(String toEmail, String subject, String body) {
-		Gmaildetails gmail = new Gmaildetails();
-		String fromEmail = gmail.getEmail();
-		String password = gmail.getPassword();
+
+		String fromEmail = System.getenv("email");
+		String password = System.getenv("password");
 		Properties prop = new Properties();
 		prop.put("mail.smtp.auth", "true");
 		prop.put("mail.smtp.starttls.enable", "true");
