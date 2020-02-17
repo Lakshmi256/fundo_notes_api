@@ -1,4 +1,5 @@
 package com.bridgelabz.fundoonotes.implementation;
+
 /*
  * author:Lakshmi Prasad A
  */
@@ -75,7 +76,7 @@ public class NoteServiceImplementation implements NoteService {
 				note.setPinned(information.isPinned());
 				note.setTrashed(information.isTrashed());
 				note.setArchieved(information.isArchieved());
-				note.setUpDateAndTime(information.getUpDateAndTime());
+				note.setUpDateAndTime(LocalDateTime.now());
 				noteRepository.save(note);
 
 			}

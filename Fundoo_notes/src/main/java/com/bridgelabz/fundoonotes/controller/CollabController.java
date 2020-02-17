@@ -21,7 +21,7 @@ public class CollabController {
 	@Autowired
 	private ColabratorService service;
 
-	/* API for adding a collabrator */
+	/* API for adding a collaborator */
 	@PostMapping("/collabrator/add")
 	public ResponseEntity<Response> addCollab(@RequestParam("email") String email, @RequestParam("noteId") Long noteId,
 			@RequestHeader("token") String token) {
@@ -29,7 +29,7 @@ public class CollabController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created", 200));
 	}
 
-	/* API for removing a collabrator */
+	/* API for removing a collaborator */
 	@DeleteMapping("/collabrator/remove")
 	public ResponseEntity<Response> removeCollab(@RequestParam("email") String email,
 			@RequestParam("noteId") Long noteId, @RequestHeader("token") String token) {
@@ -37,6 +37,7 @@ public class CollabController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created", 200));
 	}
 
+	/* API for getting all collaborators */
 	@GetMapping("/getallcollab")
 	public ResponseEntity<Response> getAllCollab(@RequestHeader("token") String token) {
 		List<NoteInformation> notes = service.getAllCollabs(token);
