@@ -1,4 +1,5 @@
 package com.bridgelabz.fundoonotes.entity;
+
 /*
  * author:Lakshmi Prasad A
  */
@@ -13,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -34,14 +37,16 @@ public class UserInformation {
 	private Long mobileNumber;
 
 	private boolean isVerified;
-	
+
 	private LocalDateTime createDate;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
-	
+
 	@JoinColumn(name = "userId")
-	
+
 	private List<NoteInformation> note;
+	@JsonIgnore
+	private List<NoteInformation> colabrateNote;
 
 	public long getUserId() {
 		return userId;
@@ -105,6 +110,14 @@ public class UserInformation {
 
 	public void setNote(List<NoteInformation> note) {
 		this.note = note;
+	}
+
+	public List<NoteInformation> getColabrateNote() {
+		return colabrateNote;
+	}
+
+	public void setColabrateNote(List<NoteInformation> colabrateNote) {
+		this.colabrateNote = colabrateNote;
 	}
 
 }
