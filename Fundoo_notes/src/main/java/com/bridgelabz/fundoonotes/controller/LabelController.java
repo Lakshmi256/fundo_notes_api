@@ -24,6 +24,7 @@ import com.bridgelabz.fundoonotes.service.LabelService;
 
 @RestController
 public class LabelController {
+	
 	@Autowired
 	private LabelService service;
 

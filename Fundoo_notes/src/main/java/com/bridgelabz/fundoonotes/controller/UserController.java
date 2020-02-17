@@ -1,4 +1,5 @@
 package com.bridgelabz.fundoonotes.controller;
+
 /*
  * author:Lakshmi Prasad A
  */
@@ -72,7 +73,7 @@ public class UserController {
 		if (update) {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("verified", 200, token));
 		}
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("not verified", 400, token));
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("not verified", 400, token));
 
 	}
 
@@ -85,7 +86,7 @@ public class UserController {
 		if (result) {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user exist", 200, email));
 		}
-		return ResponseEntity.status(HttpStatus.ACCEPTED)
+		return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
 				.body(new Response("user does not exist with given email id", 400, email));
 
 	}
@@ -106,7 +107,7 @@ public class UserController {
 	@GetMapping("user/getusers")
 	public ResponseEntity<Response> getUsers() {
 		List<UserInformation> users = service.getUsers();
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("the users are", 200, users));
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("the users are", 200, users));
 	}
 
 	/* API for getting details of only one user */

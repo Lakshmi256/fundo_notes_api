@@ -14,31 +14,32 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.fundoonotes.entity.NoteInformation;
 import com.bridgelabz.fundoonotes.response.Response;
+import com.bridgelabz.fundoonotes.service.ColabratorService;
 
 @RestController
 public class CollabController {
 	@Autowired
-	private CollabController service;
+	private ColabratorService service;
 
 	/* API for adding a collabrator */
 	@PostMapping("/collabrator/add")
-	public ResponseEntity<Response> addCollab(@RequestParam("email") String email,
-			@RequestParam("noteId") String noteId, @RequestHeader("token") String token) {
-		service.addCollab(email, noteId, token);
+	public ResponseEntity<Response> addCollab(@RequestParam("email") String email, @RequestParam("noteId") Long noteId,
+			@RequestHeader("token") String token) {
+		service.addcolab(noteId, email, token);
 		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created", 200));
 	}
 
 	/* API for removing a collabrator */
 	@DeleteMapping("/collabrator/remove")
 	public ResponseEntity<Response> removeCollab(@RequestParam("email") String email,
-			@RequestParam("noteId") String noteId, @RequestHeader("token") String token) {
-		service.removeCollab(email, noteId, token);
+			@RequestParam("noteId") Long noteId, @RequestHeader("token") String token) {
+		service.removeCollab(noteId, token, email);
 		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created", 200));
 	}
 
 	@GetMapping("/getallcollab")
 	public ResponseEntity<Response> getAllCollab(@RequestHeader("token") String token) {
-		List<NoteInformation> notes = (List<NoteInformation>) service.getAllCollab(token);
+		List<NoteInformation> notes = service.getAllCollabs(token);
 		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created", 200, notes));
 	}
 

@@ -55,7 +55,7 @@ public class NoteInformation {
 
 	private List<LabelInformation> list;
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "Collaborator_Note", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = {
+	@JoinTable(name = "Collaborator_Note", joinColumns = { @JoinColumn(name = "collab_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "user_id") })
 
 	private List<LabelInformation> colabUser;

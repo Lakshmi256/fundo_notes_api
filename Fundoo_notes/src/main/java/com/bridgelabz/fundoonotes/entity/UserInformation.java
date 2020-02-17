@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -45,6 +47,9 @@ public class UserInformation {
 	@JoinColumn(name = "userId")
 
 	private List<NoteInformation> note;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "collaborator_note", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "note_id") })
 	@JsonIgnore
 	private List<NoteInformation> colabrateNote;
 
