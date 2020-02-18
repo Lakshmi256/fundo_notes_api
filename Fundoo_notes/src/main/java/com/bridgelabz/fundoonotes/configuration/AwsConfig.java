@@ -1,5 +1,7 @@
 package com.bridgelabz.fundoonotes.configuration;
-
+/*
+ * author:Lakshmi Prasad A
+ */
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,5 +1,7 @@
 package com.bridgelabz.fundoonotes.entity;
-
+/*
+ * author:Lakshmi Prasad A
+ */
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
