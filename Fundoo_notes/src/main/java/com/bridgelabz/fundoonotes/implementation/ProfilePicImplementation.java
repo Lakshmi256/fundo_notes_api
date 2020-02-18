@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.S3Object;
 import com.bridgelabz.fundoonotes.entity.Profile;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
-import com.bridgelabz.fundoonotes.exception.UserException;
 import com.bridgelabz.fundoonotes.repository.ProfilePicRepository;
 import com.bridgelabz.fundoonotes.repository.UserRepository;
 import com.bridgelabz.fundoonotes.service.ProfilePic;
@@ -51,5 +53,29 @@ public class ProfilePicImplementation implements ProfilePic {
 			throw new RuntimeException("error while uploding file");
 		}
 		return null;
+	}
+
+	@Transactional
+	@Override
+	public S3Object fetchobject(String awsFileName) {
+		S3Object s3Object;
+		try {
+			s3Object = amazons3Client.getObject(new GetObjectRequest(bucketName, awsFileName));
+		} catch (AmazonServiceException serviceException) {
+			serviceException.printStackTrace();
+			throw new RuntimeException("error while fetching details");
+		}
+		return s3Object;
+	}
+
+	@Transactional
+	@Override
+	public void deleteobject(String key) {
+		try {
+			amazons3Client.deleteObject(bucketName, key);
+		} catch (AmazonServiceException serviceException) {
+			serviceException.printStackTrace();
+			throw new RuntimeException("error while deleting  object");
+		}
 	}
 }

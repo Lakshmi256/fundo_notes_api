@@ -107,7 +107,7 @@ public class UserController {
 	@GetMapping("user/getusers")
 	public ResponseEntity<Response> getUsers() {
 		List<UserInformation> users = service.getUsers();
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("the users are", 200, users));
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("the users are", 200, users));
 	}
 
 	/* API for getting details of only one user */
