@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,9 +30,11 @@ public class ProfilePicImplementation implements ProfilePic {
 	private JwtGenerator tokenGenerator;
 	@Autowired
 	private UserRepository userRepository;
-	private String bucketName = System.getenv("bucketname");
+
+	@Value("${bucket}")
+	private String bucketName;
 	@Autowired
-	private AmazonS3 amazons3Client;
+	private AmazonS3 amazonS3Client;
 
 	@Transactional
 	@Override
@@ -45,7 +48,7 @@ public class ProfilePicImplementation implements ProfilePic {
 				objectMetadata.setContentType(contentType);
 				objectMetadata.setContentLength(file.getSize());
 
-				amazons3Client.putObject(bucketName, fileName, file.getInputStream(), objectMetadata);
+				amazonS3Client.putObject(bucketName, fileName, file.getInputStream(), objectMetadata);
 				profileRepository.save(profile);
 				return profile;
 			}
@@ -60,7 +63,7 @@ public class ProfilePicImplementation implements ProfilePic {
 	public S3Object fetchobject(String awsFileName) {
 		S3Object s3Object;
 		try {
-			s3Object = amazons3Client.getObject(new GetObjectRequest(bucketName, awsFileName));
+			s3Object = amazonS3Client.getObject(new GetObjectRequest(bucketName, awsFileName));
 		} catch (AmazonServiceException serviceException) {
 			serviceException.printStackTrace();
 			throw new RuntimeException("error while fetching details");
@@ -72,7 +75,7 @@ public class ProfilePicImplementation implements ProfilePic {
 	@Override
 	public void deleteobject(String key) {
 		try {
-			amazons3Client.deleteObject(bucketName, key);
+			amazonS3Client.deleteObject(bucketName, key);
 		} catch (AmazonServiceException serviceException) {
 			serviceException.printStackTrace();
 			throw new RuntimeException("error while deleting  object");
@@ -94,11 +97,32 @@ public class ProfilePicImplementation implements ProfilePic {
 				objectMetadata.setContentType(contentType);
 				objectMetadata.setContentLength(file.getSize());
 
-				amazons3Client.putObject(bucketName, originalFilename, file.getInputStream(), objectMetadata);
+				amazonS3Client.putObject(bucketName, originalFilename, file.getInputStream(), objectMetadata);
 				profileRepository.save(profile);
 				return profile;
 			}
 			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+
+	@Transactional
+	@Override
+	public S3Object getProfilePic(String token) {
+		try {
+			Long userId = tokenGenerator.parseJWT(token);
+			UserInformation user = userRepository.getUserById(userId);
+			if (user != null) {
+				Profile profile = profileRepository.findUserById(userId);
+				if (profile != null) {
+					return fetchobject(profile.getProfilePicName());
+				} else {
+					return null;
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

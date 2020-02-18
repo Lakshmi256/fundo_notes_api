@@ -1,5 +1,6 @@
 package com.bridgelabz.fundoonotes.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,12 +13,15 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 @Configuration
 public class AwsConfig {
 
-	private String awsKeyId = System.getenv("awsKeyId");
-	private String acessKey = System.getenv("acessKey");
-	private String region = System.getenv("region");
+	@Value("${awsKeyId}")
+	private String awsKeyId;
+	@Value("${acessKey}")
+	private String acessKey;
+	@Value("${region}")
+	private String region;
 
 	@Bean
-	public AmazonS3 amazons3Client() {
+	public AmazonS3 amazonS3Client() {
 		BasicAWSCredentials awscreds = new BasicAWSCredentials(awsKeyId, acessKey);
 		return AmazonS3ClientBuilder.standard().withRegion(Regions.fromName(region))
 				.withCredentials(new AWSStaticCredentialsProvider(awscreds)).build();

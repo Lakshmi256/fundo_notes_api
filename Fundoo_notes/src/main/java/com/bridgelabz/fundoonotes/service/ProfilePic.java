@@ -15,4 +15,6 @@ public interface ProfilePic {
 
 	Profile update(MultipartFile file, String originalFilename, String contentType, String token);
 
+	S3Object getProfilePic(String token);
+
 }
