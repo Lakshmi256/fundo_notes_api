@@ -78,4 +78,31 @@ public class ProfilePicImplementation implements ProfilePic {
 			throw new RuntimeException("error while deleting  object");
 		}
 	}
+
+	@Transactional
+	@Override
+	public Profile update(MultipartFile file, String originalFilename, String contentType, String token) {
+		try {
+			Long userId = tokenGenerator.parseJWT(token);
+			UserInformation user = userRepository.getUserById(userId);
+			Profile profile = profileRepository.findUserById(userId);
+			if (user != null && profile != null) {
+
+				deleteobject(profile.getProfilePicName());
+				profileRepository.delete(profile);
+				ObjectMetadata objectMetadata = new ObjectMetadata();
+				objectMetadata.setContentType(contentType);
+				objectMetadata.setContentLength(file.getSize());
+
+				amazons3Client.putObject(bucketName, originalFilename, file.getInputStream(), objectMetadata);
+				profileRepository.save(profile);
+				return profile;
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+
+	}
 }

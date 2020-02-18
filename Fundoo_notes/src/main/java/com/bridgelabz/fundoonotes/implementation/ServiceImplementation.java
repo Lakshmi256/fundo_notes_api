@@ -153,6 +153,6 @@ public class ServiceImplementation implements Services {
 		}
 		UserInformation user = repository.getUserById(id);
 
-		return null;
+		return user;
 	}
 }
