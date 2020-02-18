@@ -1,4 +1,5 @@
 package com.bridgelabz.fundoonotes.implementation;
+
 /*
  * author:Lakshmi Prasad A
  */
@@ -9,7 +10,6 @@ import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.bridgelabz.fundoonotes.dto.LabelDto;
@@ -172,9 +172,10 @@ public class LabelServiceImplementation implements LabelService {
 		List<LabelInformation> labels = labelRepository.getAllLabel(id);
 		return labels;
 	}
+
 	@Override
-	public List<NoteInformation> getAllNotes(String token ,Long labelId){
-		LabelInformation label=labelRepository.getLabel(labelId);
+	public List<NoteInformation> getAllNotes(String token, Long labelId) {
+		LabelInformation label = labelRepository.getLabel(labelId);
 		List<NoteInformation> list = label.getList();
 		return list;
 	}
