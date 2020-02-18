@@ -1,4 +1,5 @@
 package com.bridgelabz.fundoonotes.controller;
+
 /*
  * author:Lakshmi Prasad A
  */
@@ -23,6 +24,7 @@ public class ProfilePicController {
 	@Autowired
 	private ProfilePic service;
 
+	/* Api for adding profile picture */
 	@PostMapping("/profile/add")
 	public ResponseEntity<Response> addProfilePic(@ModelAttribute MultipartFile file,
 			@RequestHeader("token") String token) {
@@ -32,6 +34,7 @@ public class ProfilePicController {
 				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went wrong ", 400));
 	}
 
+	/* api for updating profile picture */
 	@PutMapping("/profile/update")
 	public ResponseEntity<Response> updateProfilePic(@ModelAttribute MultipartFile file,
 			@RequestHeader("token") String token) {
@@ -41,6 +44,7 @@ public class ProfilePicController {
 				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went wrong ", 400));
 	}
 
+	/* api for fetching profile picture */
 	@GetMapping("/profile/get")
 	public ResponseEntity<Response> getProfilePic(@RequestHeader("token") String token) {
 		S3Object profile = service.getProfilePic(token);
