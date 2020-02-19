@@ -3,6 +3,7 @@ package com.bridgelabz.fundoonotes.controller;
 /*
  * author:Lakshmi Prasad A
  */
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,5 +125,6 @@ public class NoteController {
 			@RequestParam("noteId") Long noteId, @RequestBody RemainderDto remainder) {
 		service.removeRemainder(noteId, token, remainder);
 		return ResponseEntity.status(HttpStatus.OK).body(new Response(" trashed notes", 200));
+	
 	}
 }

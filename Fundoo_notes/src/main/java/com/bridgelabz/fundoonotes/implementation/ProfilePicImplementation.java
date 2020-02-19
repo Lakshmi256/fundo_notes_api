@@ -1,4 +1,5 @@
 package com.bridgelabz.fundoonotes.implementation;
+
 /*
  * author:Lakshmi Prasad A
  */
@@ -45,12 +46,17 @@ public class ProfilePicImplementation implements ProfilePic {
 			Long userId = (Long) tokenGenerator.parseJWT(token);
 			UserInformation user = userRepository.getUserById(userId);
 			if (user != null) {
-				Profile profile = new Profile(fileName, user);
-				ObjectMetadata objectMetadata = new ObjectMetadata();
-				objectMetadata.setContentType(contentType);
-				objectMetadata.setContentLength(file.getSize());
 
+				Profile profile = new Profile(fileName, user);
+
+				ObjectMetadata objectMetadata = new ObjectMetadata();
+
+				objectMetadata.setContentType(contentType);
+
+				objectMetadata.setContentLength(file.getSize());
+				
 				amazonS3Client.putObject(bucketName, fileName, file.getInputStream(), objectMetadata);
+
 				profileRepository.save(profile);
 				return profile;
 			}

@@ -1,7 +1,9 @@
 package com.bridgelabz.fundoonotes.configuration;
+
 /*
  * author:Lakshmi Prasad A
  */
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -21,5 +23,6 @@ public class RedisConfig {
 		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
 		redisTemplate.setConnectionFactory(jedisConnectionFactory());
 		return redisTemplate;
+	
 	}
 }

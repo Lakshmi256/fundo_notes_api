@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.amazonaws.services.s3.model.S3Object;
 import com.bridgelabz.fundoonotes.entity.Profile;
 import com.bridgelabz.fundoonotes.response.Response;
