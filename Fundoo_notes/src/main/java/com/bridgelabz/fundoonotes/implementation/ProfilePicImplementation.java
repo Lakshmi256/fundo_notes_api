@@ -54,7 +54,7 @@ public class ProfilePicImplementation implements ProfilePic {
 				objectMetadata.setContentType(contentType);
 
 				objectMetadata.setContentLength(file.getSize());
-				
+
 				amazonS3Client.putObject(bucketName, fileName, file.getInputStream(), objectMetadata);
 
 				profileRepository.save(profile);
