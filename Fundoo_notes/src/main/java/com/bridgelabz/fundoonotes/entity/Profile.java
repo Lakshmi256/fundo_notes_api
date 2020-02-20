@@ -1,4 +1,5 @@
 package com.bridgelabz.fundoonotes.entity;
+
 /*
  * author:Lakshmi Prasad A
  */

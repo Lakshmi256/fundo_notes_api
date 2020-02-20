@@ -1,4 +1,5 @@
 package com.bridgelabz.fundoonotes.response;
+
 /*
  * author:Lakshmi Prasad A
  */
@@ -44,7 +45,5 @@ public class Response {
 	public void setObj(Object obj) {
 		this.obj = obj;
 	}
-	
-	
 
 }

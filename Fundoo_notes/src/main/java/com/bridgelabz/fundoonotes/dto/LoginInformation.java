@@ -1,4 +1,5 @@
 package com.bridgelabz.fundoonotes.dto;
+
 /*
  * author:Lakshmi Prasad A
  */
@@ -13,8 +14,6 @@ public class LoginInformation {
 	private String email;
 	@NotNull
 	private String password;
-
-
 
 	public String getPassword() {
 		return password;

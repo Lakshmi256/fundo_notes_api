@@ -1,4 +1,5 @@
 package com.bridgelabz.fundoonotes.repository;
+
 /*
  * author:Lakshmi Prasad A
  */
@@ -13,7 +14,6 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import com.bridgelabz.fundoonotes.entity.LabelInformation;
-
 
 @Repository
 public class LabelRepositoryImplementation implements LabelRepository {

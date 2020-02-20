@@ -125,6 +125,6 @@ public class NoteController {
 			@RequestParam("noteId") Long noteId, @RequestBody RemainderDto remainder) {
 		service.removeRemainder(noteId, token, remainder);
 		return ResponseEntity.status(HttpStatus.OK).body(new Response(" trashed notes", 200));
-	
+
 	}
 }

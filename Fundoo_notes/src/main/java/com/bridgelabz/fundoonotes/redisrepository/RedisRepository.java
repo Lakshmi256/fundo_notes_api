@@ -1,10 +1,10 @@
 package com.bridgelabz.fundoonotes.redisrepository;
+
 /*
  * author:Lakshmi Prasad A
  */
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-
 
 import com.bridgelabz.fundoonotes.entity.NoteInformation;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
