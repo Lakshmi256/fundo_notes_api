@@ -265,6 +265,7 @@ public class NoteServiceImplementation implements NoteService {
 			user = repository.getUserById(userid);
 			NoteInformation note = noteRepository.findById(noteid);
 			if (note != null) {
+				System.out.println(remainder.getRemainder());
 				note.setReminder(remainder.getRemainder());
 				noteRepository.save(note);
 

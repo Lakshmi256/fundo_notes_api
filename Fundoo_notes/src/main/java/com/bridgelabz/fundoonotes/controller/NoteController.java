@@ -112,11 +112,11 @@ public class NoteController {
 	}
 
 	/* API for adding remainder to Notes */
-	@GetMapping("/note/addremainder/{id}")
+	@PostMapping("/note/addremainder/{id}")
 	public ResponseEntity<Response> addRemainder(@RequestHeader("token") String token,
 			@RequestParam("noteId") Long noteId, @RequestBody RemainderDto remainder) {
 		service.addRemainder(noteId, token, remainder);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response(" trashed notes", 200));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response(" remainder added", 200));
 	}
 
 	/* API for removing remainder Notes */
@@ -124,7 +124,7 @@ public class NoteController {
 	public ResponseEntity<Response> removeRemainder(@RequestHeader("token") String token,
 			@RequestParam("noteId") Long noteId, @RequestBody RemainderDto remainder) {
 		service.removeRemainder(noteId, token, remainder);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response(" trashed notes", 200));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response(" removed remainder", 200));
 
 	}
 }
