@@ -62,9 +62,8 @@ public class ServiceImplementation implements Services {
 			mailObject.setEmail(information.getEmail());
 			mailObject.setMessage(mailResponse);
 			mailObject.setSubject("verification");
-			// MailServiceProvider.sendEmail(mailObject.getEmail(), mailObject.getSubject(),
-			// mailObject.getMessage());
-			rabbitMQSender.produceMsg(mailObject);
+			MailServiceProvider.sendEmail(mailObject.getEmail(), mailObject.getSubject(), mailObject.getMessage());
+			//rabbitMQSender.produceMsg(mailObject);
 			return true;
 		}
 		throw new UserException("user already exists with the same mail id");

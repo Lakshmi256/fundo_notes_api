@@ -1,5 +1,9 @@
 package com.bridgelabz.fundoonotes.configuration;
 
+/*
+ * author:Lakshmi Prasad A
+ */
+
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
@@ -13,40 +17,35 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/*
- * author:Lakshmi Prasad A
- */
-
-
 @Configuration
 @EnableRabbit
 public class RabbitmqConfig {
-	
+
 	@Autowired
 	private ConnectionFactory rabbitConnectionFactory;
 
-	@Value("${rmq.rube.exchange}")
+	@Value("rmq.rube.exchange")
 	private String exchangeName;
 
-	@Value("${rmq.rube.queue}")
+	@Value("rmq.rube.queue")
 	private String queue;
-	
-	@Value("${rube.key}")
+
+	@Value("rube.key")
 	private String routingKey;
-	
+
 	@Bean
 	DirectExchange rubeExchange() {
-		return new DirectExchange(exchangeName);
+		return new DirectExchange("rmq.rube.exchange", true, false);
 	}
 
 	@Bean
 	public Queue rubeQueue() {
-		return new Queue(queue, false);
+		return new Queue("rmq.rube.queue", true);
 	}
 
 	@Bean
 	Binding rubeExchangeBinding(DirectExchange rubeExchange, Queue rubeQueue) {
-		return BindingBuilder.bind(rubeExchange).to(rubeExchange).with(routingKey);
+		return BindingBuilder.bind(rubeExchange).to(rubeExchange).with("rube.key");
 	}
 
 	@Bean
@@ -57,9 +56,10 @@ public class RabbitmqConfig {
 	@Bean
 	public RabbitTemplate rabbitTemplate(ConnectionFactory rabbitConnectionFactory) {
 		RabbitTemplate rt = new RabbitTemplate(rabbitConnectionFactory);
-		rt.setExchange(exchangeName);
-		rt.setRoutingKey(routingKey);
+		rt.setExchange("rmq.rube.exchange");
+		rt.setRoutingKey("rube.key");
 		rt.setMessageConverter(jsonMessageConverter());
+		rt.setConnectionFactory(rabbitConnectionFactory);
 		return rt;
 	}
 

@@ -23,6 +23,6 @@ public class RedisConfig {
 		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
 		redisTemplate.setConnectionFactory(jedisConnectionFactory());
 		return redisTemplate;
-	
+
 	}
 }

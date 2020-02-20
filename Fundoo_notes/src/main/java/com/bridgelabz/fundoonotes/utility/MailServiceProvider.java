@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class MailServiceProvider {
 	@Autowired
@@ -55,5 +56,6 @@ public class MailServiceProvider {
 			System.out.println("exception occured while sending mail");
 		}
 	}
+	
 
 }
