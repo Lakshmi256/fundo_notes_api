@@ -41,6 +41,7 @@ public class ElasticServiceImplementation implements ElasticService {
 
 	private String TYPE = "note_info";
 
+	/* method to create note */
 	@Override
 	public String createNote(NoteInformation information) {
 		Map<String, Object> notemapper = objectMapper.convertValue(information, Map.class);
@@ -55,6 +56,7 @@ public class ElasticServiceImplementation implements ElasticService {
 		return indexResposnse.getResult().name();
 	}
 
+	/* method to update note */
 	@Override
 	public String updateNote(NoteInformation note) {
 		Map<String, Object> notemapper = objectMapper.convertValue(note, Map.class);
@@ -68,6 +70,7 @@ public class ElasticServiceImplementation implements ElasticService {
 		return updateResponse.getResult().name();
 	}
 
+	/* method to delete note */
 	@Override
 	public String DeleteNote(NoteInformation note) {
 		Map<String, Object> notemapper = objectMapper.convertValue(note, Map.class);
@@ -81,6 +84,7 @@ public class ElasticServiceImplementation implements ElasticService {
 		return deleteResponse.getResult().name();
 	}
 
+	/* method to search note by title */
 	@Override
 	public List<NoteInformation> searchByTitle(String title) {
 		SearchRequest searchRequest = new SearchRequest("springboot");
@@ -96,6 +100,7 @@ public class ElasticServiceImplementation implements ElasticService {
 		return getResult(searchResponse);
 	}
 
+	/* method to get result */
 	@Override
 	public List<NoteInformation> getResult(SearchResponse searchResponse) {
 		SearchHit[] searchhits = searchResponse.getHits().getHits();

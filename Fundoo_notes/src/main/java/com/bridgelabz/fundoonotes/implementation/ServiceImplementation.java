@@ -45,6 +45,7 @@ public class ServiceImplementation implements Services {
 	@Autowired
 	private RabbitMQSender rabbitMQSender;
 
+	/* method to register */
 	@Transactional
 	@Override
 	public boolean register(UserDto information) {
@@ -69,6 +70,7 @@ public class ServiceImplementation implements Services {
 		throw new UserException("user already exists with the same mail id");
 	}
 
+	/* method for login */
 	@Transactional
 	@Override
 	public UserInformation login(LoginInformation information) {
@@ -89,10 +91,12 @@ public class ServiceImplementation implements Services {
 		}
 
 	}
+	/* method for generating token */
 
 	public String generateToken(Long id) {
 		return generate.jwtToken(id);
 	}
+	/* method for updating password */
 
 	@Transactional
 	@Override
@@ -108,6 +112,7 @@ public class ServiceImplementation implements Services {
 			throw new UserException("invalid credentials");
 		}
 	}
+	/* method for email verification */
 
 	@Transactional
 	@Override
@@ -117,6 +122,7 @@ public class ServiceImplementation implements Services {
 		repository.verify(id);
 		return true;
 	}
+	/* method for sending mail for forgot password api */
 
 	@Override
 	public boolean isUserExist(String email) {
@@ -134,6 +140,7 @@ public class ServiceImplementation implements Services {
 			throw new UserException("User doesn't exist");
 		}
 	}
+	/* method for getting all users */
 
 	@Transactional
 	@Override
@@ -142,6 +149,7 @@ public class ServiceImplementation implements Services {
 		UserInformation user = users.get(0);
 		return users;
 	}
+	/* method for getting single user */
 
 	@Transactional
 	@Override

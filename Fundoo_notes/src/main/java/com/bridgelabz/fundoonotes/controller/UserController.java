@@ -26,6 +26,8 @@ import com.bridgelabz.fundoonotes.response.UsersDetail;
 import com.bridgelabz.fundoonotes.service.Services;
 import com.bridgelabz.fundoonotes.utility.JwtGenerator;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 
 public class UserController {
@@ -37,7 +39,9 @@ public class UserController {
 	private JwtGenerator generate;
 
 	/* API for registration */
+
 	@PostMapping("/user/registration")
+	@ApiOperation(value = "Api to register for Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> registration(@RequestBody UserDto information) {
 
 		boolean result = service.register(information);
@@ -54,6 +58,7 @@ public class UserController {
 
 	/* API for Login */
 	@PostMapping("user/login")
+	@ApiOperation(value = "Api to login for user in  Fundoonotes", response = Response.class)
 	public ResponseEntity<UsersDetail> login(@RequestBody LoginInformation information) {
 		UserInformation userInformation = service.login(information);
 		if (userInformation != null) {
@@ -67,6 +72,7 @@ public class UserController {
 
 	/* API for for user verification */
 	@GetMapping("verify/{token}")
+	@ApiOperation(value = "Api to verify email of user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> userVerification(@PathVariable("token") String token) throws Exception {
 
 		boolean update = service.verify(token);
@@ -79,6 +85,7 @@ public class UserController {
 
 	/* API for for forgot password */
 	@PostMapping("user/forgotpassword")
+	@ApiOperation(value = "Api to forgot password of user  for Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> forgotPassword(@RequestParam("email") String email) {
 		System.out.println(email);
 
@@ -93,6 +100,7 @@ public class UserController {
 
 	/* API for for updating password with token */
 	@PutMapping("user/update/{token}")
+	@ApiOperation(value = "Api to update user details for Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> update(@PathVariable("token") String token, @RequestBody PasswordUpdate update) {
 		boolean result = service.update(update, token);
 		if (result) {
@@ -105,6 +113,7 @@ public class UserController {
 
 	/* API for getting all user details */
 	@GetMapping("user/getusers")
+	@ApiOperation(value = "Api to get all users for Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> getUsers() {
 		List<UserInformation> users = service.getUsers();
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("the users are", 200, users));
@@ -112,6 +121,7 @@ public class UserController {
 
 	/* API for getting details of only one user */
 	@GetMapping("user/getoneuser")
+	@ApiOperation(value = "Api to get one user for Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> getOneUser(@RequestHeader("token") String token) {
 		UserInformation user = service.getsingleUser(token);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user is ", 200, user));

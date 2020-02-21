@@ -23,6 +23,8 @@ import com.bridgelabz.fundoonotes.entity.NoteInformation;
 import com.bridgelabz.fundoonotes.response.Response;
 import com.bridgelabz.fundoonotes.service.LabelService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public class LabelController {
 
@@ -31,6 +33,7 @@ public class LabelController {
 
 	/* API for creating label */
 	@PostMapping("/label/create")
+	@ApiOperation(value = "Api to create a label for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> createLabel(@RequestBody LabelDto label, @RequestHeader("token") String token) {
 		service.createLabel(label, token);
 		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("label created ", 200, label));
@@ -39,6 +42,7 @@ public class LabelController {
 
 	/* API for creating and map label */
 	@PostMapping("/label/createandmap")
+	@ApiOperation(value = "Api to create a label and map with note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> createandmapLabel(@RequestBody LabelDto label, @RequestHeader("token") String token,
 			@RequestParam("noteId") Long noteId) {
 		service.createAndMap(label, token, noteId);
@@ -48,6 +52,7 @@ public class LabelController {
 
 	/* API for mapping label with note */
 	@PostMapping("/label/addlabel")
+	@ApiOperation(value = "Api to map a label with note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> addlabel(@RequestParam("labelId") Long labelId,
 			@RequestHeader("token") String token, @RequestParam("noteId") Long noteId) {
 		service.addLabel(labelId, token, noteId);
@@ -57,6 +62,8 @@ public class LabelController {
 
 	/* API for removing label and note maping */
 	@PostMapping("/label/remove")
+	@ApiOperation(value = "Api to remove mapping for label and note for user in Fundoonotes", response = Response.class)
+
 	public ResponseEntity<Response> removelabel(@RequestParam("labelId") Long labelId,
 			@RequestHeader("token") String token, @RequestParam("noteId") Long noteId) {
 		service.removeLabel(labelId, token, noteId);
@@ -66,6 +73,8 @@ public class LabelController {
 
 	/* API for updating label */
 	@PutMapping("/label/update")
+	@ApiOperation(value = "Api to update a label  for user in Fundoonotes", response = Response.class)
+
 	public ResponseEntity<Response> updateLabel(@RequestBody LabelUpdate label, @RequestHeader("token") String token) {
 		service.editLabel(label, token);
 		return ResponseEntity.status(HttpStatus.OK).body(new Response("label updated ", 200, label));
@@ -74,6 +83,8 @@ public class LabelController {
 
 	/* API for deleting label */
 	@PostMapping("/label/delete")
+	@ApiOperation(value = "Api to delete a label for user in Fundoonotes", response = Response.class)
+
 	public ResponseEntity<Response> deleteLabel(@RequestBody LabelUpdate label, @RequestHeader("token") String token) {
 		service.deleteLabel(label, token);
 		return ResponseEntity.status(HttpStatus.OK).body(new Response("label deleted ", 200, label));
@@ -82,6 +93,8 @@ public class LabelController {
 
 	/* API for getting all label */
 	@GetMapping("/label/getlabels")
+	@ApiOperation(value = "Api to get all labels for user in Fundoonotes", response = Response.class)
+
 	public ResponseEntity<Response> getLabels(@RequestHeader("token") String token) {
 		List<LabelInformation> labels = service.getLabel(token);
 		return ResponseEntity.status(HttpStatus.OK).body(new Response("getting all labels  ", 200, labels));
@@ -90,6 +103,8 @@ public class LabelController {
 
 	/* API for getting all labelNotes */
 	@GetMapping("/label/getlabelsnotes")
+	@ApiOperation(value = "Api to get all notes of a label for user in Fundoonotes", response = Response.class)
+
 	public ResponseEntity<Response> getNotes(@RequestHeader("token") String token,
 			@RequestParam("labelId") Long labelId) {
 		List<NoteInformation> list = service.getAllNotes(token, labelId);

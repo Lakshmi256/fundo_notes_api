@@ -19,6 +19,8 @@ import com.bridgelabz.fundoonotes.entity.NoteInformation;
 import com.bridgelabz.fundoonotes.response.Response;
 import com.bridgelabz.fundoonotes.service.ColabratorService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public class CollabController {
 	@Autowired
@@ -26,6 +28,7 @@ public class CollabController {
 
 	/* API for adding a collaborator */
 	@PostMapping("/collabrator/add")
+	@ApiOperation(value = "Api to add collaborator of a note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> addCollab(@RequestParam("email") String email, @RequestParam("noteId") Long noteId,
 			@RequestHeader("token") String token) {
 		service.addcolab(noteId, email, token);
@@ -34,6 +37,7 @@ public class CollabController {
 
 	/* API for removing a collaborator */
 	@DeleteMapping("/collabrator/remove")
+	@ApiOperation(value = "Api to remove collaborator of a note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> removeCollab(@RequestParam("email") String email,
 			@RequestParam("noteId") Long noteId, @RequestHeader("token") String token) {
 		service.removeCollab(noteId, token, email);
@@ -42,6 +46,7 @@ public class CollabController {
 
 	/* API for getting all collaborators */
 	@GetMapping("/getallcollab")
+	@ApiOperation(value = "Api to get all collaborators of a note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> getAllCollab(@RequestHeader("token") String token) {
 		List<NoteInformation> notes = service.getAllCollabs(token);
 		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created", 200, notes));

@@ -18,6 +18,8 @@ import com.bridgelabz.fundoonotes.entity.Profile;
 import com.bridgelabz.fundoonotes.response.Response;
 import com.bridgelabz.fundoonotes.service.ProfilePic;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public class ProfilePicController {
 	@Autowired
@@ -25,6 +27,7 @@ public class ProfilePicController {
 
 	/* Api for adding profile picture */
 	@PostMapping("/profile/add")
+	@ApiOperation(value = "Api to upload profile pic of User for Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> addProfilePic(@ModelAttribute MultipartFile file,
 			@RequestHeader("token") String token) {
 		Profile profile = service.storeObjectInS3(file, file.getOriginalFilename(), file.getContentType(), token);
@@ -35,6 +38,7 @@ public class ProfilePicController {
 
 	/* api for updating profile picture */
 	@PutMapping("/profile/update")
+	@ApiOperation(value = "Api to update profile pic of User for Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> updateProfilePic(@ModelAttribute MultipartFile file,
 			@RequestHeader("token") String token) {
 		Profile profile = service.update(file, file.getOriginalFilename(), file.getContentType(), token);
@@ -45,6 +49,7 @@ public class ProfilePicController {
 
 	/* api for fetching profile picture */
 	@GetMapping("/profile/get")
+	@ApiOperation(value = "Api to get profile pic of User for Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> getProfilePic(@RequestHeader("token") String token) {
 		S3Object profile = service.getProfilePic(token);
 		return profile != null

@@ -37,6 +37,7 @@ public class NoteServiceImplementation implements NoteService {
 	@Autowired
 	private ModelMapper modelMapper;
 
+	/* method to create a note */
 	@Transactional
 	@Override
 	public void createNote(NoteDto information, String token) {
@@ -61,6 +62,7 @@ public class NoteServiceImplementation implements NoteService {
 		}
 	}
 
+	/* method to update note */
 	@Transactional
 	@Override
 	public void updateNote(NoteUpdation information, String token) {
@@ -85,6 +87,7 @@ public class NoteServiceImplementation implements NoteService {
 		}
 	}
 
+	/* method to delete note */
 	@Transactional
 	@Override
 	public void deleteNote(Long id, String token) {
@@ -103,6 +106,7 @@ public class NoteServiceImplementation implements NoteService {
 		}
 	}
 
+	/* method to archieve note */
 	@Transactional
 	@Override
 	public void archieveNote(Long id, String token) {
@@ -122,6 +126,7 @@ public class NoteServiceImplementation implements NoteService {
 		}
 	}
 
+	/* method to pin note */
 	@Transactional
 	@Override
 	public void pinNote(Long id, String token) {
@@ -141,6 +146,7 @@ public class NoteServiceImplementation implements NoteService {
 		}
 	}
 
+	/* method to delete note permanently */
 	@Transactional
 	@Override
 	public boolean deleteNotePermanently(Long id, String token) {
@@ -165,6 +171,7 @@ public class NoteServiceImplementation implements NoteService {
 		return false;
 	}
 
+	/* method to get all notes */
 	@Transactional
 	@Override
 	public List<NoteInformation> getAllNotes(String token) {
@@ -181,6 +188,7 @@ public class NoteServiceImplementation implements NoteService {
 		}
 	}
 
+	/* method to get trashed notes */
 	@Transactional
 	@Override
 	public List<NoteInformation> gettrashednotes(String token) {
@@ -199,6 +207,7 @@ public class NoteServiceImplementation implements NoteService {
 		}
 	}
 
+	/* method to get archieved notes */
 	@Transactional
 	@Override
 	public List<NoteInformation> getarchieved(String token) {
@@ -217,6 +226,7 @@ public class NoteServiceImplementation implements NoteService {
 		}
 	}
 
+	/* method to add colour */
 	@Transactional
 	@Override
 	public void addColour(Long noteId, String token, String colour) {
@@ -239,6 +249,7 @@ public class NoteServiceImplementation implements NoteService {
 		}
 	}
 
+	/* method to get pinned */
 	@Transactional
 	@Override
 	public List<NoteInformation> getPinneded(String token) {
@@ -257,6 +268,7 @@ public class NoteServiceImplementation implements NoteService {
 		}
 	}
 
+	/* method to add remainder */
 	@Transactional
 	@Override
 	public void addRemainder(Long noteid, String token, RemainderDto remainder) {
@@ -278,6 +290,7 @@ public class NoteServiceImplementation implements NoteService {
 		}
 	}
 
+	/* method to remove remainder */
 	@Transactional
 	@Override
 	public void removeRemainder(Long noteid, String token, RemainderDto remainder) {

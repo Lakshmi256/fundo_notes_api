@@ -39,6 +39,7 @@ public class ProfilePicImplementation implements ProfilePic {
 	@Autowired
 	private AmazonS3 amazonS3Client;
 
+	/* method to store object in S3 */
 	@Transactional
 	@Override
 	public Profile storeObjectInS3(MultipartFile file, String fileName, String contentType, String token) {
@@ -66,6 +67,7 @@ public class ProfilePicImplementation implements ProfilePic {
 		return null;
 	}
 
+	/* method to fetch object details */
 	@Transactional
 	@Override
 	public S3Object fetchobject(String awsFileName) {
@@ -79,6 +81,7 @@ public class ProfilePicImplementation implements ProfilePic {
 		return s3Object;
 	}
 
+	/* method to delete object */
 	@Transactional
 	@Override
 	public void deleteobject(String key) {
@@ -90,6 +93,7 @@ public class ProfilePicImplementation implements ProfilePic {
 		}
 	}
 
+	/* method to update the picture */
 	@Transactional
 	@Override
 	public Profile update(MultipartFile file, String originalFilename, String contentType, String token) {
@@ -117,6 +121,7 @@ public class ProfilePicImplementation implements ProfilePic {
 
 	}
 
+	/* method to get profilepicture */
 	@Transactional
 	@Override
 	public S3Object getProfilePic(String token) {

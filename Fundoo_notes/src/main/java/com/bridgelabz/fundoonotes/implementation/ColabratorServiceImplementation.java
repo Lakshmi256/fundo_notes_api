@@ -33,6 +33,7 @@ public class ColabratorServiceImplementation implements ColabratorService {
 
 	private NoteRepository noteRepository;
 
+	/* method to add the colaborator */
 	@Transactional
 	@Override
 	public NoteInformation addcolab(Long noteId, String email, String token) {
@@ -58,6 +59,7 @@ public class ColabratorServiceImplementation implements ColabratorService {
 
 	}
 
+	/* method to get all colabrators */
 	@Transactional
 	@Override
 	public List<NoteInformation> getAllCollabs(String token) {
@@ -67,6 +69,7 @@ public class ColabratorServiceImplementation implements ColabratorService {
 		return note;
 	}
 
+	/* method to remove the colaborator */
 	@Transactional
 	@Override
 	public NoteInformation removeCollab(long noteId, String token, String email) {

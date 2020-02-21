@@ -40,6 +40,7 @@ public class LabelServiceImplementation implements LabelService {
 	private NoteRepository noteRepository;
 	private LabelInformation labelInformation;
 
+	/* method to create the label */
 	@Transactional
 	@Override
 	public void createLabel(LabelDto label, String token) {
@@ -67,6 +68,7 @@ public class LabelServiceImplementation implements LabelService {
 		}
 	}
 
+	/* method to create and map label and note */
 	@Override
 	public void createAndMap(LabelDto label, String token, Long noteId) {
 		Long id = null;
@@ -95,6 +97,7 @@ public class LabelServiceImplementation implements LabelService {
 		}
 	}
 
+	/* method to map already existing note and label */
 	@Override
 	public void addLabel(Long labelId, String token, Long noteId) {
 		NoteInformation note = noteRepository.findById(noteId);
@@ -103,6 +106,7 @@ public class LabelServiceImplementation implements LabelService {
 		labelRepository.save(label);
 	}
 
+	/* method to remove maping */
 	@Override
 	public void removeLabel(Long labelId, String token, Long noteId) {
 		NoteInformation note = noteRepository.findById(noteId);
@@ -111,6 +115,7 @@ public class LabelServiceImplementation implements LabelService {
 		labelRepository.save(label);
 	}
 
+	/* method to edit label */
 	@Override
 	public void editLabel(LabelUpdate label, String token) {
 		Long id = null;
@@ -135,6 +140,7 @@ public class LabelServiceImplementation implements LabelService {
 		}
 	}
 
+	/* method to delete label */
 	@Override
 	public void deleteLabel(LabelUpdate label, String token) {
 		Long id = null;
@@ -159,6 +165,7 @@ public class LabelServiceImplementation implements LabelService {
 		}
 	}
 
+	/* method to get all labels */
 	@Override
 	public List<LabelInformation> getLabel(String token) {
 		Long id = null;
@@ -173,6 +180,7 @@ public class LabelServiceImplementation implements LabelService {
 		return labels;
 	}
 
+	/* method to add the colaborator */
 	@Override
 	public List<NoteInformation> getAllNotes(String token, Long labelId) {
 		LabelInformation label = labelRepository.getLabel(labelId);
