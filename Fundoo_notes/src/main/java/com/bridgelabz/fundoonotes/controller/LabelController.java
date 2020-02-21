@@ -25,7 +25,7 @@ import com.bridgelabz.fundoonotes.service.LabelService;
 
 @RestController
 public class LabelController {
-	
+
 	@Autowired
 	private LabelService service;
 
@@ -46,7 +46,7 @@ public class LabelController {
 
 	}
 
-	/* API for add label */
+	/* API for mapping label with note */
 	@PostMapping("/label/addlabel")
 	public ResponseEntity<Response> addlabel(@RequestParam("labelId") Long labelId,
 			@RequestHeader("token") String token, @RequestParam("noteId") Long noteId) {
@@ -55,7 +55,7 @@ public class LabelController {
 
 	}
 
-	/* API for removing label */
+	/* API for removing label and note maping */
 	@PostMapping("/label/remove")
 	public ResponseEntity<Response> removelabel(@RequestParam("labelId") Long labelId,
 			@RequestHeader("token") String token, @RequestParam("noteId") Long noteId) {
