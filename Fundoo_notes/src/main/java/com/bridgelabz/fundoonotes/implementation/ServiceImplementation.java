@@ -63,8 +63,9 @@ public class ServiceImplementation implements Services {
 			mailObject.setEmail(information.getEmail());
 			mailObject.setMessage(mailResponse);
 			mailObject.setSubject("verification");
-			MailServiceProvider.sendEmail(mailObject.getEmail(), mailObject.getSubject(), mailObject.getMessage());
-			// rabbitMQSender.produceMsg(mailObject);
+			// MailServiceProvider.sendEmail(mailObject.getEmail(), mailObject.getSubject(),
+			// mailObject.getMessage());
+			rabbitMQSender.produceMsg(mailObject);
 			return true;
 		}
 		throw new UserException("user already exists with the same mail id");
@@ -125,7 +126,7 @@ public class ServiceImplementation implements Services {
 	/* method for sending mail for forgot password api */
 
 	@Override
-	public boolean isUserExist(String email) {
+	public boolean forgotPassword(String email) {
 		try {
 			UserInformation user = repository.getUser(email);
 			if (user.isVerified() == true) {

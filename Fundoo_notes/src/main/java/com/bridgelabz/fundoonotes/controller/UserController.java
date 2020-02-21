@@ -43,19 +43,13 @@ public class UserController {
 	@PostMapping("/user/registration")
 	@ApiOperation(value = "Api to register for Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> registration(@RequestBody UserDto information) {
-
 		boolean result = service.register(information);
 		if (result) {
-
 			return ResponseEntity.status(HttpStatus.CREATED)
 					.body(new Response("registration succefull", 200, information));
-
 		}
-
 		return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(new Response("user already ", 400, information));
-
 	}
-
 	/* API for Login */
 	@PostMapping("user/login")
 	@ApiOperation(value = "Api to login for user in  Fundoonotes", response = Response.class)
@@ -69,7 +63,6 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new UsersDetail("login failed ", 400, information));
 
 	}
-
 	/* API for for user verification */
 	@GetMapping("verify/{token}")
 	@ApiOperation(value = "Api to verify email of user in Fundoonotes", response = Response.class)
@@ -80,16 +73,14 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("verified", 200, token));
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("not verified", 400, token));
-
 	}
-
 	/* API for for forgot password */
 	@PostMapping("user/forgotpassword")
 	@ApiOperation(value = "Api to forgot password of user  for Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> forgotPassword(@RequestParam("email") String email) {
 		System.out.println(email);
 
-		boolean result = service.isUserExist(email);
+		boolean result = service.forgotPassword(email);
 		if (result) {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user exist", 200, email));
 		}

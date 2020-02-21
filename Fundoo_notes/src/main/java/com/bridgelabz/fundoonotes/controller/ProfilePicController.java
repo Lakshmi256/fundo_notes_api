@@ -31,9 +31,10 @@ public class ProfilePicController {
 	public ResponseEntity<Response> addProfilePic(@ModelAttribute MultipartFile file,
 			@RequestHeader("token") String token) {
 		Profile profile = service.storeObjectInS3(file, file.getOriginalFilename(), file.getContentType(), token);
-		return profile.getUserLabel() != null
-				? ResponseEntity.status(HttpStatus.OK).body(new Response("profile added successful", 200, profile))
-				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went wrong ", 400));
+		if (profile.getUserLabel() != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(new Response("profile added successful", 200, profile));
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went wrong ", 400));
 	}
 
 	/* api for updating profile picture */
@@ -42,9 +43,10 @@ public class ProfilePicController {
 	public ResponseEntity<Response> updateProfilePic(@ModelAttribute MultipartFile file,
 			@RequestHeader("token") String token) {
 		Profile profile = service.update(file, file.getOriginalFilename(), file.getContentType(), token);
-		return profile.getUserLabel() != null
-				? ResponseEntity.status(HttpStatus.OK).body(new Response("profile added successful", 200, profile))
-				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went wrong ", 400));
+		if (profile.getUserLabel() != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(new Response("profile added successful", 200, profile));
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went wrong ", 400));
 	}
 
 	/* api for fetching profile picture */
@@ -52,8 +54,10 @@ public class ProfilePicController {
 	@ApiOperation(value = "Api to get profile pic of User for Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> getProfilePic(@RequestHeader("token") String token) {
 		S3Object profile = service.getProfilePic(token);
-		return profile != null
-				? ResponseEntity.status(HttpStatus.OK).body(new Response("profile added successful", 200, profile))
-				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went wrong ", 400));
+		if (profile != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(new Response("profile added successful", 200, profile));
+		}
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went wrong ", 400));
 	}
 }

@@ -13,15 +13,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MailServiceProvider {
-	@Autowired
-	private static JavaMailSender javaMailSender;
+	
 
 	public static void sendEmail(String toEmail, String subject, String body) {
 

@@ -23,6 +23,7 @@ public class ColabratorServiceImplementation implements ColabratorService {
 
 	@Autowired
 	private JwtGenerator tokenGenerator;
+
 	private UserInformation userInformation = new UserInformation();
 
 	@Autowired

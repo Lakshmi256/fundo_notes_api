@@ -18,12 +18,12 @@ public interface Services {
 
 	boolean verify(String token) throws Exception;
 
-	boolean isUserExist(String email);
-
 	boolean update(PasswordUpdate information, String token);
 
 	List<UserInformation> getUsers();
 
 	UserInformation getsingleUser(String token);
+
+	boolean forgotPassword(String email);
 
 }
