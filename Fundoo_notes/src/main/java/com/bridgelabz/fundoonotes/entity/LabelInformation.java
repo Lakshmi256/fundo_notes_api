@@ -34,36 +34,4 @@ public class LabelInformation {
 
 	private List<NoteInformation> list;
 
-	public List<NoteInformation> getList() {
-		return list;
-	}
-
-	public void setList(List<NoteInformation> list) {
-		this.list = list;
-	}
-
-	public Long getLabelId() {
-		return labelId;
-	}
-
-	public void setLabelId(Long labelId) {
-		this.labelId = labelId;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
 }

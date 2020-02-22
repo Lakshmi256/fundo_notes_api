@@ -31,29 +31,7 @@ public class Profile {
 	@JoinColumn(name = "userId")
 	private UserInformation userLabel;
 
-	public UserInformation getUserLabel() {
-		return userLabel;
-	}
 
-	public void setUserLabel(UserInformation userLabel) {
-		this.userLabel = userLabel;
-	}
-
-	public Long getId() {
-		return Id;
-	}
-
-	public void setId(Long id) {
-		Id = id;
-	}
-
-	public String getProfilePicName() {
-		return profilePicName;
-	}
-
-	public void setProfilePicName(String profilePicName) {
-		this.profilePicName = profilePicName;
-	}
 
 	public Profile(String profilePicName, UserInformation userLabel) {
 		super();
