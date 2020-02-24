@@ -40,25 +40,26 @@ public class UserController {
 
 	/* API for registration */
 
-	@PostMapping("/user/registration")
-	@ApiOperation(value = "Api to register for Fundoonotes", response = Response.class)
-	public ResponseEntity<Response> registration(@RequestBody UserDto information) {
+	@PostMapping("/users/register")
+	@ApiOperation(value = "Api to register for users in Fundoonotes", response = Response.class)
+	public ResponseEntity<Response> register(@RequestBody UserDto information) {
 		boolean result = service.register(information);
 		if (result) {
 			return ResponseEntity.status(HttpStatus.CREATED)
-					.body(new Response("registration succefull", 200, information));
+					.body(new Response("registration successfull", 200, information));
 		}
-		return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(new Response("user already ", 400, information));
+		return ResponseEntity.status(HttpStatus.ALREADY_REPORTED)
+				.body(new Response("user already exist", 400, information));
 	}
 
 	/* API for Login */
-	@PostMapping("user/login")
+	@PostMapping("users/login")
 	@ApiOperation(value = "Api to login for user in  Fundoonotes", response = Response.class)
 	public ResponseEntity<UsersDetail> login(@RequestBody LoginInformation information) {
 		UserInformation userInformation = service.login(information);
 		if (userInformation != null) {
 			String token = generate.jwtToken(userInformation.getUserId());
-			return ResponseEntity.status(HttpStatus.ACCEPTED).header("login succefull", information.getEmail())
+			return ResponseEntity.status(HttpStatus.ACCEPTED).header("login successfull", information.getEmail())
 					.body(new UsersDetail(token, 200, information));
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new UsersDetail("login failed ", 400, information));
@@ -66,7 +67,7 @@ public class UserController {
 	}
 
 	/* API for for user verification */
-	@GetMapping("verify/{token}")
+	@GetMapping("users/verify/{token}")
 	@ApiOperation(value = "Api to verify email of user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> userVerification(@PathVariable("token") String token) throws Exception {
 
@@ -78,7 +79,7 @@ public class UserController {
 	}
 
 	/* API for for forgot password */
-	@PostMapping("user/forgotpassword")
+	@PostMapping("users/forgotpassword")
 	@ApiOperation(value = "Api to forgot password of user  for Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> forgotPassword(@RequestParam("email") String email) {
 
@@ -92,7 +93,7 @@ public class UserController {
 	}
 
 	/* API for for updating password with token */
-	@PutMapping("user/update/{token}")
+	@PutMapping("users/updatePassword/{token}")
 	@ApiOperation(value = "Api to update user details for Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> update(@PathVariable("token") String token, @RequestBody PasswordUpdate update) {
 		boolean result = service.update(update, token);
@@ -105,7 +106,7 @@ public class UserController {
 	}
 
 	/* API for getting all user details */
-	@GetMapping("user/getusers")
+	@GetMapping("users")
 	@ApiOperation(value = "Api to get all users for Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> getUsers() {
 		List<UserInformation> users = service.getUsers();
@@ -113,7 +114,7 @@ public class UserController {
 	}
 
 	/* API for getting details of only one user */
-	@GetMapping("user/getoneuser")
+	@GetMapping("user")
 	@ApiOperation(value = "Api to get one user for Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> getOneUser(@RequestHeader("token") String token) {
 		UserInformation user = service.getsingleUser(token);

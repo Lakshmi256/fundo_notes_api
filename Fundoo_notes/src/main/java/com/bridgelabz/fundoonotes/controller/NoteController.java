@@ -35,7 +35,7 @@ public class NoteController {
 	private NoteService service;
 
 	/* API for creating a Note */
-	@PostMapping("/note/create")
+	@PostMapping("/notes/create")
 	@ApiOperation(value = "Api to create a note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> create(@RequestBody NoteDto information, @RequestHeader("token") String token) {
 		service.createNote(information, token);
@@ -43,7 +43,7 @@ public class NoteController {
 	}
 
 	/* API for updating a Note */
-	@PutMapping("/note/update")
+	@PutMapping("/notes/update")
 	@ApiOperation(value = "Api to update a note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> update(@RequestBody NoteUpdation note, @RequestHeader("token") String token) {
 		service.updateNote(note, token);
@@ -51,7 +51,7 @@ public class NoteController {
 	}
 
 	/* API for pin a Note */
-	@PutMapping("/note/pin/{id}")
+	@PutMapping("/notes/pin/{id}")
 	@ApiOperation(value = "Api to pin a note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> pin(@PathVariable Long id, @RequestHeader("token") String token) {
 		service.pinNote(id, token);
@@ -59,7 +59,7 @@ public class NoteController {
 	}
 
 	/* API for archieve a Note */
-	@PutMapping("/note/archieve/{id}")
+	@PutMapping("/notes/archieve/{id}")
 	@ApiOperation(value = "Api to archieve a note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> archieve(@PathVariable Long id, @RequestHeader("token") String token) {
 		service.archieveNote(id, token);
@@ -67,7 +67,7 @@ public class NoteController {
 	}
 
 	/* API for deleting a note */
-	@DeleteMapping("/note/delete/{id}")
+	@DeleteMapping("/notes/delete/{id}")
 	@ApiOperation(value = "Api to delete a note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> delete(@PathVariable Long id, @RequestHeader("token") String token) {
 		service.deleteNote(id, token);
@@ -75,7 +75,7 @@ public class NoteController {
 	}
 
 	/* API for permanently deleting a Note */
-	@DeleteMapping("/note/deletepermanentally/{id}")
+	@DeleteMapping("/notes/deletepermanentally/{id}")
 	@ApiOperation(value = "Api to delete a note permanentally for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> deletePermanentally(@PathVariable Long id, @RequestHeader("token") String token) {
 		service.deleteNotePermanently(id, token);
@@ -83,11 +83,11 @@ public class NoteController {
 	}
 
 	/* API for updating color to a Note */
-	@PostMapping("/note/addcolour")
+	@PostMapping("/notes/addcolor")
 	@ApiOperation(value = "Api to add color to a note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> addColour(@RequestParam("noteId") Long noteId,
-			@RequestParam("colour") String colour, @RequestHeader("token") String token) {
-		service.addColour(noteId, token, colour);
+			@RequestParam("color") String color, @RequestHeader("token") String token) {
+		service.addColour(noteId, token, color);
 		return ResponseEntity.status(HttpStatus.OK).body(new Response("note colour changed", 200));
 
 	}
