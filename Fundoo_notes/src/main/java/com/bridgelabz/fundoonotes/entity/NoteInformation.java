@@ -55,6 +55,6 @@ public class NoteInformation {
 	@JoinTable(name = "Collaborator_Note", joinColumns = { @JoinColumn(name = "note_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "user_id") })
 
-	private List<LabelInformation> colabUser;
+	private List<UserInformation> colabUser;
 
 }

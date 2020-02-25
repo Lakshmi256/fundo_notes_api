@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,8 +36,7 @@ public class ServiceImplementation implements Services {
 	private JwtGenerator generate;
 	@Autowired
 	private BCryptPasswordEncoder encryption;
-	@Autowired
-	private ModelMapper modelMapper;
+
 	@Autowired
 	private MailResponse response;
 	@Autowired
@@ -51,7 +50,7 @@ public class ServiceImplementation implements Services {
 	public boolean register(UserDto information) {
 		UserInformation user = repository.getUser(information.getEmail());
 		if (user == null) {
-			userInformation = modelMapper.map(information, UserInformation.class);
+			BeanUtils.copyProperties(information, UserInformation.class);
 			userInformation.setCreateDate(LocalDateTime.now());
 			String epassword = encryption.encode(information.getPassword());
 			userInformation.setPassword(epassword);

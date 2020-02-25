@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +34,6 @@ public class NoteServiceImplementation implements NoteService {
 	@Autowired
 	private NoteRepository noteRepository;
 	private NoteInformation noteInformation = new NoteInformation();
-	@Autowired
-	private ModelMapper modelMapper;
 
 	/* method to create a note */
 	@Transactional
@@ -45,7 +43,7 @@ public class NoteServiceImplementation implements NoteService {
 			Long userid = (Long) tokenGenerator.parseJWT(token);
 			user = repository.getUserById(userid);
 			if (user != null) {
-				noteInformation = modelMapper.map(information, NoteInformation.class);
+				BeanUtils.copyProperties(information, NoteInformation.class);
 				noteInformation.setCreatedDateAndTime(LocalDateTime.now());
 				noteInformation.setArchieved(false);
 				noteInformation.setPinned(false);
