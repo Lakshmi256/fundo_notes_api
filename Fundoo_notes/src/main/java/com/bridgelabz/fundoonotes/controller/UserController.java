@@ -43,7 +43,8 @@ public class UserController {
 	@PostMapping("/users/register")
 	@ApiOperation(value = "Api to register for users in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> register(@RequestBody UserDto information) {
-		boolean result = service.register(information);
+		boolean result = service.register(
+				information);
 		if (result) {
 			return ResponseEntity.status(HttpStatus.CREATED)
 					.body(new Response("registration successfull", 200, information));

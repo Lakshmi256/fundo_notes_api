@@ -62,9 +62,8 @@ public class ServiceImplementation implements Services {
 			mailObject.setEmail(information.getEmail());
 			mailObject.setMessage(mailResponse);
 			mailObject.setSubject("verification");
-			// MailServiceProvider.sendEmail(mailObject.getEmail(), mailObject.getSubject(),
-			// mailObject.getMessage());
-			rabbitMQSender.produceMsg(mailObject);
+			MailServiceProvider.sendEmail(mailObject.getEmail(), mailObject.getSubject(), mailObject.getMessage());
+			// rabbitMQSender.produceMsg(mailObject);
 			return true;
 		}
 		throw new UserException("user already exists with the same mail id");
@@ -81,7 +80,7 @@ public class ServiceImplementation implements Services {
 
 				return user;
 			} else {
-				String mailResposne = response.fromMessage("http://localhost:8080/verify",
+				String mailResposne = response.fromMessage("http://localhost:8080/users/verify",
 						generate.jwtToken(user.getUserId()));
 				MailServiceProvider.sendEmail(information.getEmail(), "verification", mailResposne);
 				return null;
@@ -129,7 +128,7 @@ public class ServiceImplementation implements Services {
 		try {
 			UserInformation user = repository.getUser(email);
 			if (user.isVerified() == true) {
-				String mailResposne = response.fromMessage("http://localhost:8080/verify",
+				String mailResposne = response.fromMessage("http://localhost:8080/users/verify",
 						generate.jwtToken(user.getUserId()));
 				MailServiceProvider.sendEmail(user.getEmail(), "verification", mailResposne);
 				return true;

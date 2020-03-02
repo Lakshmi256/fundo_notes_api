@@ -32,6 +32,7 @@ public class AwsConfig {
 	private String acessKey;
 	@Value("${region}")
 	private String region;
+	
 
 	@Bean
 	public AmazonS3 amazonS3Client() {

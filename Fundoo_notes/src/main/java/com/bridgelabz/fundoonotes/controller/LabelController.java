@@ -32,7 +32,7 @@ public class LabelController {
 	private LabelService service;
 
 	/* API for creating label */
-	@PostMapping("/label/create")
+	@PostMapping("/labels/create")
 	@ApiOperation(value = "Api to create a label for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> createLabel(@RequestBody LabelDto label, @RequestHeader("token") String token) {
 		service.createLabel(label, token);
@@ -41,7 +41,7 @@ public class LabelController {
 	}
 
 	/* API for creating and map label */
-	@PostMapping("/label/createandmap")
+	@PostMapping("/labels/createandmap")
 	@ApiOperation(value = "Api to create a label and map with note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> createandmapLabel(@RequestBody LabelDto label, @RequestHeader("token") String token,
 			@RequestParam("noteId") Long noteId) {
@@ -51,7 +51,7 @@ public class LabelController {
 	}
 
 	/* API for mapping label with note */
-	@PostMapping("/label/addlabel")
+	@PostMapping("/labels/addlabel")
 	@ApiOperation(value = "Api to map a label with note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> addlabel(@RequestParam("labelId") Long labelId,
 			@RequestHeader("token") String token, @RequestParam("noteId") Long noteId) {
@@ -61,7 +61,7 @@ public class LabelController {
 	}
 
 	/* API for removing label and note maping */
-	@PostMapping("/label/remove")
+	@PostMapping("/labels/remove")
 	@ApiOperation(value = "Api to remove mapping for label and note for user in Fundoonotes", response = Response.class)
 
 	public ResponseEntity<Response> removelabel(@RequestParam("labelId") Long labelId,
@@ -72,7 +72,7 @@ public class LabelController {
 	}
 
 	/* API for updating label */
-	@PutMapping("/label/update")
+	@PutMapping("/labels/update")
 	@ApiOperation(value = "Api to update a label  for user in Fundoonotes", response = Response.class)
 
 	public ResponseEntity<Response> updateLabel(@RequestBody LabelUpdate label, @RequestHeader("token") String token) {
@@ -82,7 +82,7 @@ public class LabelController {
 	}
 
 	/* API for deleting label */
-	@PostMapping("/label/delete")
+	@PostMapping("/labels/delete")
 	@ApiOperation(value = "Api to delete a label for user in Fundoonotes", response = Response.class)
 
 	public ResponseEntity<Response> deleteLabel(@RequestBody LabelUpdate label, @RequestHeader("token") String token) {
@@ -92,7 +92,7 @@ public class LabelController {
 	}
 
 	/* API for getting all label */
-	@GetMapping("/label/getlabels")
+	@GetMapping("/labels/getlabels")
 	@ApiOperation(value = "Api to get all labels for user in Fundoonotes", response = Response.class)
 
 	public ResponseEntity<Response> getLabels(@RequestHeader("token") String token) {
@@ -102,7 +102,7 @@ public class LabelController {
 	}
 
 	/* API for getting all labelNotes */
-	@GetMapping("/label/getlabelsnotes")
+	@GetMapping("/labels/getlabelsnotes")
 	@ApiOperation(value = "Api to get all notes of a label for user in Fundoonotes", response = Response.class)
 
 	public ResponseEntity<Response> getNotes(@RequestHeader("token") String token,
