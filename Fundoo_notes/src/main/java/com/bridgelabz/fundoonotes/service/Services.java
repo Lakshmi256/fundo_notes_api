@@ -5,9 +5,13 @@ package com.bridgelabz.fundoonotes.service;
  */
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.amazonaws.services.s3.model.S3Object;
 import com.bridgelabz.fundoonotes.dto.LoginInformation;
 import com.bridgelabz.fundoonotes.dto.PasswordUpdate;
 import com.bridgelabz.fundoonotes.dto.UserDto;
+import com.bridgelabz.fundoonotes.entity.Profile;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
 
 public interface Services {
@@ -25,5 +29,15 @@ public interface Services {
 	UserInformation getsingleUser(String token);
 
 	boolean forgotPassword(String email);
+
+	Profile storeObjectInS3(MultipartFile file, String fileName, String contentType, String token);
+
+	S3Object fetchobject(String awsFileName);
+
+	void deleteobject(String key);
+
+	Profile update(MultipartFile file, String originalFilename, String contentType, String token);
+
+	S3Object getProfilePic(String token);
 
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,13 +17,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.services.s3.model.S3Object;
 import com.bridgelabz.fundoonotes.dto.LoginInformation;
 import com.bridgelabz.fundoonotes.dto.PasswordUpdate;
 import com.bridgelabz.fundoonotes.dto.UserDto;
+import com.bridgelabz.fundoonotes.entity.Profile;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
 import com.bridgelabz.fundoonotes.response.Response;
 import com.bridgelabz.fundoonotes.response.UsersDetail;
+import com.bridgelabz.fundoonotes.service.ProfilePic;
 import com.bridgelabz.fundoonotes.service.Services;
 import com.bridgelabz.fundoonotes.utility.JwtGenerator;
 
@@ -38,13 +43,13 @@ public class UserController {
 	@Autowired
 	private JwtGenerator generate;
 
+
 	/* API for registration */
 
 	@PostMapping("/users/register")
 	@ApiOperation(value = "Api to register for users in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> register(@RequestBody UserDto information) {
-		boolean result = service.register(
-				information);
+		boolean result = service.register(information);
 		if (result) {
 			return ResponseEntity.status(HttpStatus.CREATED)
 					.body(new Response("registration successfull", 200, information));
@@ -120,5 +125,42 @@ public class UserController {
 	public ResponseEntity<Response> getOneUser(@RequestHeader("token") String token) {
 		UserInformation user = service.getsingleUser(token);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user is ", 200, user));
+	}
+
+	/* Api for adding profile picture */
+	@PostMapping("/profile/add")
+	@ApiOperation(value = "Api to upload profile pic of User for Fundoonotes", response = Response.class)
+	public ResponseEntity<Response> addProfilePic(@ModelAttribute MultipartFile file,
+			@RequestHeader("token") String token) {
+		Profile profile = service.storeObjectInS3(file, file.getOriginalFilename(), file.getContentType(),
+				token);
+		if (profile.getUserLabel() != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(new Response("profile added successful", 200, profile));
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went wrong ", 400));
+	}
+
+	/* api for updating profile picture */
+	@PutMapping("/profile/update")
+	@ApiOperation(value = "Api to update profile pic of User for Fundoonotes", response = Response.class)
+	public ResponseEntity<Response> updateProfilePic(@ModelAttribute MultipartFile file,
+			@RequestHeader("token") String token) {
+		Profile profile = service.update(file, file.getOriginalFilename(), file.getContentType(), token);
+		if (profile.getUserLabel() != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(new Response("profile added successful", 200, profile));
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went wrong ", 400));
+	}
+
+	/* api for fetching profile picture */
+	@GetMapping("/profile/get")
+	@ApiOperation(value = "Api to get profile pic of User for Fundoonotes", response = Response.class)
+	public ResponseEntity<Response> getProfilePic(@RequestHeader("token") String token) {
+		S3Object profile = service.getProfilePic(token);
+		if (profile != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(new Response("profile added successful", 200, profile));
+		}
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went wrong ", 400));
 	}
 }
