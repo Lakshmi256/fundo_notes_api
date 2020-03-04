@@ -36,7 +36,7 @@ public class LabelController {
 	@ApiOperation(value = "Api to create a label for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> createLabel(@RequestBody LabelDto label, @RequestHeader("token") String token) {
 		service.createLabel(label, token);
-		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("label created ", 200, label));
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("label created ", label));
 
 	}
 
@@ -46,7 +46,7 @@ public class LabelController {
 	public ResponseEntity<Response> createandmapLabel(@RequestBody LabelDto label, @RequestHeader("token") String token,
 			@RequestParam("noteId") Long noteId) {
 		service.createAndMap(label, token, noteId);
-		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("label created ", 200, label));
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("label created ", label));
 
 	}
 
@@ -56,7 +56,7 @@ public class LabelController {
 	public ResponseEntity<Response> addlabel(@RequestParam("labelId") Long labelId,
 			@RequestHeader("token") String token, @RequestParam("noteId") Long noteId) {
 		service.addLabel(labelId, token, noteId);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("label added ", 200));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("label added "));
 
 	}
 
@@ -67,7 +67,7 @@ public class LabelController {
 	public ResponseEntity<Response> removelabel(@RequestParam("labelId") Long labelId,
 			@RequestHeader("token") String token, @RequestParam("noteId") Long noteId) {
 		service.removeLabel(labelId, token, noteId);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("label removed ", 200));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("label removed "));
 
 	}
 
@@ -77,7 +77,7 @@ public class LabelController {
 
 	public ResponseEntity<Response> updateLabel(@RequestBody LabelUpdate label, @RequestHeader("token") String token) {
 		service.editLabel(label, token);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("label updated ", 200, label));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("label updated ", label));
 
 	}
 
@@ -87,7 +87,7 @@ public class LabelController {
 
 	public ResponseEntity<Response> deleteLabel(@RequestBody LabelUpdate label, @RequestHeader("token") String token) {
 		service.deleteLabel(label, token);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("label deleted ", 200, label));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("label deleted ", label));
 
 	}
 
@@ -97,7 +97,7 @@ public class LabelController {
 
 	public ResponseEntity<Response> getLabels(@RequestHeader("token") String token) {
 		List<LabelInformation> labels = service.getLabel(token);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("getting all labels  ", 200, labels));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("getting all labels  ", labels));
 
 	}
 
@@ -108,7 +108,7 @@ public class LabelController {
 	public ResponseEntity<Response> getNotes(@RequestHeader("token") String token,
 			@RequestParam("labelId") Long labelId) {
 		List<NoteInformation> list = service.getAllNotes(token, labelId);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("getting labelnotes  ", 200, list));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("getting labelnotes  ", list));
 
 	}
 }

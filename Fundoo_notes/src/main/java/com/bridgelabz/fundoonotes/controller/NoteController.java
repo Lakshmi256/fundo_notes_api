@@ -39,7 +39,7 @@ public class NoteController {
 	@ApiOperation(value = "Api to create a note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> create(@RequestBody NoteDto information, @RequestHeader("token") String token) {
 		service.createNote(information, token);
-		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created", 200, information));
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created", information));
 	}
 
 	/* API for updating a Note */
@@ -47,7 +47,7 @@ public class NoteController {
 	@ApiOperation(value = "Api to update a note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> update(@RequestBody NoteUpdation note, @RequestHeader("token") String token) {
 		service.updateNote(note, token);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("note updated ", 201, note));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("note updated ", note));
 	}
 
 	/* API for pin a Note */
@@ -55,7 +55,7 @@ public class NoteController {
 	@ApiOperation(value = "Api to pin a note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> pin(@PathVariable Long id, @RequestHeader("token") String token) {
 		service.pinNote(id, token);
-		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note pined", 200));
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note pined"));
 	}
 
 	/* API for archieve a Note */
@@ -63,7 +63,7 @@ public class NoteController {
 	@ApiOperation(value = "Api to archieve a note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> archieve(@PathVariable Long id, @RequestHeader("token") String token) {
 		service.archieveNote(id, token);
-		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note archieved", 200));
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note archieved"));
 	}
 
 	/* API for deleting a note */
@@ -71,7 +71,7 @@ public class NoteController {
 	@ApiOperation(value = "Api to delete a note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> delete(@PathVariable Long id, @RequestHeader("token") String token) {
 		service.deleteNote(id, token);
-		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note deleted", 200));
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note deleted"));
 	}
 
 	/* API for permanently deleting a Note */
@@ -79,16 +79,16 @@ public class NoteController {
 	@ApiOperation(value = "Api to delete a note permanentally for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> deletePermanentally(@PathVariable Long id, @RequestHeader("token") String token) {
 		service.deleteNotePermanently(id, token);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("note deleted", 200));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("note deleted"));
 	}
 
 	/* API for updating color to a Note */
 	@PostMapping("/notes/addcolor")
 	@ApiOperation(value = "Api to add color to a note for user in Fundoonotes", response = Response.class)
-	public ResponseEntity<Response> addColour(@RequestParam("noteId") Long noteId,
-			@RequestParam("color") String color, @RequestHeader("token") String token) {
+	public ResponseEntity<Response> addColour(@RequestParam("noteId") Long noteId, @RequestParam("color") String color,
+			@RequestHeader("token") String token) {
 		service.addColour(noteId, token, color);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("note colour changed", 200));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("note colour changed"));
 
 	}
 
@@ -97,7 +97,7 @@ public class NoteController {
 	@ApiOperation(value = "Api to get archieved  notes for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> getArchieve(@RequestHeader("token") String token) {
 		List<NoteInformation> list = service.getarchieved(token);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response(" archieved notes", 200, list));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response(" archieved notes", list));
 	}
 
 	/* API for getting all trashed Notes */
@@ -105,7 +105,7 @@ public class NoteController {
 	@ApiOperation(value = "Api to get trashed notes of user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> getTrashed(@RequestHeader("token") String token) {
 		List<NoteInformation> list = service.gettrashednotes(token);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response(" trashed notes", 200, list));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response(" trashed notes", list));
 	}
 
 	/* API for getting all Notes */
@@ -113,7 +113,7 @@ public class NoteController {
 	@ApiOperation(value = "Api to get all notes of a user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> getAllNotes(@RequestHeader("token") String token) {
 		List<NoteInformation> list = service.getAllNotes(token);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response(" All notes", 200, list));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response(" All notes", list));
 	}
 
 	/* API for getting all Pinned Notes */
@@ -121,7 +121,7 @@ public class NoteController {
 	@ApiOperation(value = "Api to get pinned  notes of a user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> getPinned(@RequestHeader("token") String token) {
 		List<NoteInformation> list = service.getPinneded(token);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response(" trashed notes", 200, list));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response(" trashed notes", list));
 	}
 
 	/* API for adding remainder to Notes */
@@ -130,7 +130,7 @@ public class NoteController {
 	public ResponseEntity<Response> addRemainder(@RequestHeader("token") String token,
 			@RequestParam("noteId") Long noteId, @RequestBody RemainderDto remainder) {
 		service.addRemainder(noteId, token, remainder);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response(" remainder added", 200));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response(" remainder added"));
 	}
 
 	/* API for removing remainder Notes */
@@ -139,7 +139,7 @@ public class NoteController {
 	public ResponseEntity<Response> removeRemainder(@RequestHeader("token") String token,
 			@RequestParam("noteId") Long noteId, @RequestBody RemainderDto remainder) {
 		service.removeRemainder(noteId, token, remainder);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response(" removed remainder", 200));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response(" removed remainder"));
 
 	}
 }

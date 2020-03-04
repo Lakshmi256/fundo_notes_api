@@ -46,4 +46,15 @@ public class Response {
 		this.obj = obj;
 	}
 
+	public Response(String message, Object obj) {
+		super();
+		this.message = message;
+		this.obj = obj;
+	}
+
+	public Response(String message) {
+		super();
+		this.message = message;
+	}
+
 }

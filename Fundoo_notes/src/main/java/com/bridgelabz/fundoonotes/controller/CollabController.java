@@ -32,7 +32,7 @@ public class CollabController {
 	public ResponseEntity<Response> addCollab(@RequestParam("email") String email, @RequestParam("noteId") Long noteId,
 			@RequestHeader("token") String token) {
 		service.addcolab(noteId, email, token);
-		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created", 200));
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created"));
 	}
 
 	/* API for removing a collaborator */
@@ -41,7 +41,7 @@ public class CollabController {
 	public ResponseEntity<Response> removeCollab(@RequestParam("email") String email,
 			@RequestParam("noteId") Long noteId, @RequestHeader("token") String token) {
 		service.removeCollab(noteId, token, email);
-		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created", 200));
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created"));
 	}
 
 	/* API for getting all collaborators */
@@ -49,7 +49,7 @@ public class CollabController {
 	@ApiOperation(value = "Api to get all collaborators of a note for user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> getAllCollab(@RequestHeader("token") String token) {
 		List<NoteInformation> notes = service.getAllCollabs(token);
-		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created", 200, notes));
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created", notes));
 	}
 
 }

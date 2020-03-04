@@ -27,7 +27,6 @@ import com.bridgelabz.fundoonotes.entity.Profile;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
 import com.bridgelabz.fundoonotes.response.Response;
 import com.bridgelabz.fundoonotes.response.UsersDetail;
-import com.bridgelabz.fundoonotes.service.ProfilePic;
 import com.bridgelabz.fundoonotes.service.Services;
 import com.bridgelabz.fundoonotes.utility.JwtGenerator;
 
@@ -43,7 +42,6 @@ public class UserController {
 	@Autowired
 	private JwtGenerator generate;
 
-
 	/* API for registration */
 
 	@PostMapping("/users/register")
@@ -52,23 +50,22 @@ public class UserController {
 		boolean result = service.register(information);
 		if (result) {
 			return ResponseEntity.status(HttpStatus.CREATED)
-					.body(new Response("registration successfull", 200, information));
+					.body(new Response("registration successfull", information));
 		}
-		return ResponseEntity.status(HttpStatus.ALREADY_REPORTED)
-				.body(new Response("user already exist", 400, information));
+		return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(new Response("user already exist", information));
 	}
 
 	/* API for Login */
 	@PostMapping("users/login")
 	@ApiOperation(value = "Api to login for user in  Fundoonotes", response = Response.class)
-	public ResponseEntity<UsersDetail> login(@RequestBody LoginInformation information) {
+	public ResponseEntity<Response> login(@RequestBody LoginInformation information) {
 		UserInformation userInformation = service.login(information);
 		if (userInformation != null) {
 			String token = generate.jwtToken(userInformation.getUserId());
 			return ResponseEntity.status(HttpStatus.ACCEPTED).header("login successfull", information.getEmail())
-					.body(new UsersDetail(token, 200, information));
+					.body(new Response(token, information));
 		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new UsersDetail("login failed ", 400, information));
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("login failed ", information));
 
 	}
 
@@ -79,9 +76,9 @@ public class UserController {
 
 		boolean update = service.verify(token);
 		if (update) {
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("verified", 200, token));
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("verified", token));
 		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("not verified", 400, token));
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("not verified", token));
 	}
 
 	/* API for for forgot password */
@@ -91,10 +88,10 @@ public class UserController {
 
 		boolean result = service.forgotPassword(email);
 		if (result) {
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user exist", 200, email));
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user exist", email));
 		}
 		return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
-				.body(new Response("user does not exist with given email id", 400, email));
+				.body(new Response("user does not exist with given email id", email));
 
 	}
 
@@ -105,10 +102,9 @@ public class UserController {
 		boolean result = service.update(update, token);
 		if (result) {
 			return ResponseEntity.status(HttpStatus.ACCEPTED)
-					.body(new Response("password updated successfully", 200, update));
+					.body(new Response("password updated successfully", update));
 		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-				.body(new Response("password  does not match", 402, update));
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("password  does not match", update));
 	}
 
 	/* API for getting all user details */
@@ -116,7 +112,7 @@ public class UserController {
 	@ApiOperation(value = "Api to get all users for Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> getUsers() {
 		List<UserInformation> users = service.getUsers();
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("the users are", 200, users));
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("the users are", users));
 	}
 
 	/* API for getting details of only one user */
@@ -124,7 +120,7 @@ public class UserController {
 	@ApiOperation(value = "Api to get one user for Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> getOneUser(@RequestHeader("token") String token) {
 		UserInformation user = service.getsingleUser(token);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user is ", 200, user));
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user is ", user));
 	}
 
 	/* Api for adding profile picture */
@@ -132,12 +128,11 @@ public class UserController {
 	@ApiOperation(value = "Api to upload profile pic of User for Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> addProfilePic(@ModelAttribute MultipartFile file,
 			@RequestHeader("token") String token) {
-		Profile profile = service.storeObjectInS3(file, file.getOriginalFilename(), file.getContentType(),
-				token);
+		Profile profile = service.storeObjectInS3(file, file.getOriginalFilename(), file.getContentType(), token);
 		if (profile.getUserLabel() != null) {
-			return ResponseEntity.status(HttpStatus.OK).body(new Response("profile added successful", 200, profile));
+			return ResponseEntity.status(HttpStatus.OK).body(new Response("profile added successful", profile));
 		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went wrong ", 400));
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went wrong ", profile));
 	}
 
 	/* api for updating profile picture */
@@ -147,9 +142,9 @@ public class UserController {
 			@RequestHeader("token") String token) {
 		Profile profile = service.update(file, file.getOriginalFilename(), file.getContentType(), token);
 		if (profile.getUserLabel() != null) {
-			return ResponseEntity.status(HttpStatus.OK).body(new Response("profile added successful", 200, profile));
+			return ResponseEntity.status(HttpStatus.OK).body(new Response("profile added successful", profile));
 		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went wrong ", 400));
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went wrong ", profile));
 	}
 
 	/* api for fetching profile picture */
@@ -158,9 +153,9 @@ public class UserController {
 	public ResponseEntity<Response> getProfilePic(@RequestHeader("token") String token) {
 		S3Object profile = service.getProfilePic(token);
 		if (profile != null) {
-			return ResponseEntity.status(HttpStatus.OK).body(new Response("profile added successful", 200, profile));
+			return ResponseEntity.status(HttpStatus.OK).body(new Response("profile added successful", profile));
 		}
 
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went wrong ", 400));
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went wrong ", profile));
 	}
 }
