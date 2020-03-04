@@ -187,6 +187,7 @@ public class ServiceImplementation implements Services {
 
 		return user;
 	}
+
 	/* method to store object in S3 */
 	@Transactional
 	@Override
