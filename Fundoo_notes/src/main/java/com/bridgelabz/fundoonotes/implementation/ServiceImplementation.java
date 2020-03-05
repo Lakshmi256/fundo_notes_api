@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -60,7 +61,8 @@ public class ServiceImplementation implements Services {
 	private JwtGenerator tokenGenerator;
 	@Autowired
 	private UserRepository userRepository;
-
+@Autowired
+private ModelMapper modelMapper;
 	@Value("${bucket}")
 	private String bucketName;
 	@Autowired
@@ -72,13 +74,13 @@ public class ServiceImplementation implements Services {
 	public boolean register(UserDto information) {
 		UserInformation user = repository.getUser(information.getEmail());
 		if (user == null) {
-			BeanUtils.copyProperties(information, UserInformation.class);
+			userInformation=modelMapper.map(information, UserInformation.class);
 			userInformation.setCreateDate(LocalDateTime.now());
 			String epassword = encryption.encode(information.getPassword());
 			userInformation.setPassword(epassword);
 			userInformation.setVerified(false);
 			userInformation = repository.save(userInformation);
-			String mailResponse = response.fromMessage("http://localhost:8080/verify",
+			String mailResponse = response.fromMessage("http://localhost:8080/users/verify",
 					generate.jwtToken(userInformation.getUserId()));
 
 			mailObject.setEmail(information.getEmail());
@@ -270,7 +272,7 @@ public class ServiceImplementation implements Services {
 
 	}
 
-	/* method to get profilepicture */
+	/* method to get profile picture */
 	@Transactional
 	@Override
 	public S3Object getProfilePic(String token) {

@@ -83,7 +83,7 @@ public class LabelServiceImplementation implements LabelService {
 		if (user != null) {
 			LabelInformation labelInfo = labelRepository.fetchLabel(user.getUserId(), label.getName());
 			if (labelInfo == null) {
-				BeanUtils.copyProperties(label, LabelInformation.class);
+				BeanUtils.copyProperties(label, labelInformation);
 				labelInformation.setUserId(user.getUserId());
 				labelRepository.save(labelInformation);
 				NoteInformation note = noteRepository.findById(noteId);

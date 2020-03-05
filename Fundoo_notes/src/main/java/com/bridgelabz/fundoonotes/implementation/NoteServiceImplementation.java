@@ -43,7 +43,7 @@ public class NoteServiceImplementation implements NoteService {
 			Long userid = (Long) tokenGenerator.parseJWT(token);
 			user = repository.getUserById(userid);
 			if (user != null) {
-				BeanUtils.copyProperties(information, NoteInformation.class);
+				BeanUtils.copyProperties(information, noteInformation);
 				noteInformation.setCreatedDateAndTime(LocalDateTime.now());
 				noteInformation.setArchieved(false);
 				noteInformation.setPinned(false);
