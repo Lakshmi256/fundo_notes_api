@@ -1,16 +1,15 @@
 package com.bridgelabz.fundoonotes.implementation;
-
-import java.io.IOException;
 /*
  * author:Lakshmi Prasad A
  */
+import java.io.IOException;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -148,16 +147,15 @@ private ModelMapper modelMapper;
 	/* method for sending mail for forgot password api */
 
 	@Override
-	public boolean forgotPassword(String email) {
+	public Long forgotPassword(String email) {
 		try {
 			UserInformation user = repository.getUser(email);
 			if (user.isVerified() == true) {
-				String mailResposne = response.fromMessage("http://localhost:8080/users/verify",
-						generate.jwtToken(user.getUserId()));
-				MailServiceProvider.sendEmail(user.getEmail(), "verification", mailResposne);
-				return true;
+				String mailResposne = response.fromMessage("resetpassword link---    http://localhost:4200/resetpassword");
+				MailServiceProvider.sendEmail(user.getEmail(), "fundooApp", mailResposne);
+				return user.getUserId();
 			} else {
-				return false;
+				return (long) 0;
 			}
 		} catch (Exception e) {
 			throw new UserException("User doesn't exist");

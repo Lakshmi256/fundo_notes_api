@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.model.S3Object;
+import com.bridgelabz.fundoonotes.dto.ForgotPassword;
 import com.bridgelabz.fundoonotes.dto.LoginInformation;
 import com.bridgelabz.fundoonotes.dto.PasswordUpdate;
 import com.bridgelabz.fundoonotes.dto.UserDto;
@@ -85,14 +86,16 @@ public class UserController {
 	/* API for for forgot password */
 	@PostMapping("users/forgotpassword")
 	@ApiOperation(value = "Api to forgot password of user  for Fundoonotes", response = Response.class)
-	public ResponseEntity<Response> forgotPassword(@RequestParam("email") String email) {
-
-		boolean result = service.forgotPassword(email);
-		if (result) {
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user exist", email));
+	public ResponseEntity<Response> forgotPassword(@RequestBody ForgotPassword user) {
+		System.out.println(user.getEmail());
+		long  userid = service.forgotPassword(user.getEmail());
+		if (userid!=0) {
+			String token = generate.jwtToken(userid);
+			return ResponseEntity.status(HttpStatus.ACCEPTED).header("login successfull", user.getEmail())
+					.body(new Response(token, user));
 		}
 		return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
-				.body(new Response("user does not exist with given email id", email));
+				.body(new Response("user does not exist with given email id", user));
 
 	}
 

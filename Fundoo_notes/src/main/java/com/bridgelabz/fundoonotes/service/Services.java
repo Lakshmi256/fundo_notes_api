@@ -28,7 +28,7 @@ public interface Services {
 
 	UserInformation getsingleUser(String token);
 
-	boolean forgotPassword(String email);
+	Long forgotPassword(String email);
 
 	Profile storeObjectInS3(MultipartFile file, String fileName, String contentType, String token);
 
