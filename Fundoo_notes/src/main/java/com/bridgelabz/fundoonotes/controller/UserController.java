@@ -102,7 +102,7 @@ public class UserController {
 	/* API for for updating password with token */
 	@PutMapping("users/updatePassword/{token}")
 	@ApiOperation(value = "Api to update user details for Fundoonotes", response = Response.class)
-	public ResponseEntity<Response> update(@PathVariable("token") String token, @RequestBody PasswordUpdate update) {
+	public ResponseEntity<Response> update(@RequestHeader("token") String token, @RequestBody PasswordUpdate update) {
 		boolean result = service.update(update, token);
 		if (result) {
 			return ResponseEntity.status(HttpStatus.ACCEPTED)

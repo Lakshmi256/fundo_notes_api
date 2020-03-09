@@ -10,8 +10,7 @@ import lombok.Data;
 
 @Data
 public class PasswordUpdate {
-	@NotNull
-	private String email;
+
 	@NotBlank
 	private String newPassword;
 	@NotBlank
