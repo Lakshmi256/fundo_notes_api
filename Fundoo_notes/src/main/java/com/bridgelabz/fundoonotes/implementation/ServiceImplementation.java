@@ -1,4 +1,5 @@
 package com.bridgelabz.fundoonotes.implementation;
+
 /*
  * author:Lakshmi Prasad A
  */
@@ -26,9 +27,11 @@ import com.bridgelabz.fundoonotes.configuration.RabbitMQSender;
 import com.bridgelabz.fundoonotes.dto.LoginInformation;
 import com.bridgelabz.fundoonotes.dto.PasswordUpdate;
 import com.bridgelabz.fundoonotes.dto.UserDto;
+import com.bridgelabz.fundoonotes.entity.NoteInformation;
 import com.bridgelabz.fundoonotes.entity.Profile;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
 import com.bridgelabz.fundoonotes.exception.UserException;
+import com.bridgelabz.fundoonotes.repository.NoteRepository;
 import com.bridgelabz.fundoonotes.repository.ProfilePicRepository;
 import com.bridgelabz.fundoonotes.repository.UserRepository;
 import com.bridgelabz.fundoonotes.response.MailObject;
@@ -60,8 +63,11 @@ public class ServiceImplementation implements Services {
 	private JwtGenerator tokenGenerator;
 	@Autowired
 	private UserRepository userRepository;
-@Autowired
-private ModelMapper modelMapper;
+	@Autowired
+
+	private NoteRepository noteRepository;
+	@Autowired
+	private ModelMapper modelMapper;
 	@Value("${bucket}")
 	private String bucketName;
 	@Autowired
@@ -73,7 +79,7 @@ private ModelMapper modelMapper;
 	public boolean register(UserDto information) {
 		UserInformation user = repository.getUser(information.getEmail());
 		if (user == null) {
-			userInformation=modelMapper.map(information, UserInformation.class);
+			userInformation = modelMapper.map(information, UserInformation.class);
 			userInformation.setCreateDate(LocalDateTime.now());
 			String epassword = encryption.encode(information.getPassword());
 			userInformation.setPassword(epassword);
@@ -151,7 +157,8 @@ private ModelMapper modelMapper;
 		try {
 			UserInformation user = repository.getUser(email);
 			if (user.isVerified() == true) {
-				String mailResposne = response.fromMessage("resetpassword link---    http://localhost:4200/resetpassword");
+				String mailResposne = response
+						.fromMessage("resetpassword link---    http://localhost:4200/resetpassword");
 				MailServiceProvider.sendEmail(user.getEmail(), "fundooApp", mailResposne);
 				return user.getUserId();
 			} else {
@@ -290,6 +297,59 @@ private ModelMapper modelMapper;
 		}
 		return null;
 
+	}
+
+	/* method to add the colaborator */
+	@Transactional
+	@Override
+	public NoteInformation addcolab(Long noteId, String email, String token) {
+		UserInformation user;
+		UserInformation collabrator = repository.getUser(email);
+		try {
+			Long userid = (Long) tokenGenerator.parseJWT(token);
+			user = repository.getUserById(userid);
+		} catch (Exception e) {
+			throw new UserException("user not present");
+		}
+		if (user != null) {
+			if (collabrator != null) {
+				NoteInformation note = noteRepository.findById(noteId);
+				collabrator.getColabrateNote().add(note);
+				return note;
+			} else {
+				throw new UserException("user not present to collab");
+			}
+		} else {
+			throw new UserException("user does not exits");
+		}
+
+	}
+
+	/* method to get all colabrators */
+	@Transactional
+	@Override
+	public List<NoteInformation> getAllCollabs(String token) {
+		Long userid = tokenGenerator.parseJWT(token);
+		UserInformation user = repository.getUserById(userid);
+		List<NoteInformation> note = user.getColabrateNote();
+		return note;
+	}
+
+	/* method to remove the colaborator */
+	@Transactional
+	@Override
+	public NoteInformation removeCollab(long noteId, String token, String email) {
+		UserInformation user;
+		UserInformation collabrator = repository.getUser(email);
+		try {
+			Long userid = tokenGenerator.parseJWT(token);
+			user = repository.getUserById(userid);
+		} catch (Exception e) {
+			throw new UserException("user not found");
+		}
+		NoteInformation note = noteRepository.findById(noteId);
+		note.getColabUser().remove(collabrator);
+		return null;
 	}
 
 }

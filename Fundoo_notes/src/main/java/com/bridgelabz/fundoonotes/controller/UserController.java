@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import com.bridgelabz.fundoonotes.dto.ForgotPassword;
 import com.bridgelabz.fundoonotes.dto.LoginInformation;
 import com.bridgelabz.fundoonotes.dto.PasswordUpdate;
 import com.bridgelabz.fundoonotes.dto.UserDto;
+import com.bridgelabz.fundoonotes.entity.NoteInformation;
 import com.bridgelabz.fundoonotes.entity.Profile;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
 import com.bridgelabz.fundoonotes.response.Response;
@@ -64,7 +66,7 @@ public class UserController {
 		UserInformation userInformation = service.login(information);
 		if (userInformation != null) {
 			String token = generate.jwtToken(userInformation.getUserId());
-			return ResponseEntity.status(HttpStatus.ACCEPTED).header("login successfull", information.getEmail())
+			return ResponseEntity.status(HttpStatus.ACCEPTED).header("login successfull",token)
 					.body(new Response(token, information));
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("login failed ", information));
@@ -162,4 +164,30 @@ public class UserController {
 
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went wrong ", profile));
 	}
+	/* API for adding a collaborator */
+	@PostMapping("/collabrator/add")
+	@ApiOperation(value = "Api to add collaborator of a note for user in Fundoonotes", response = Response.class)
+	public ResponseEntity<Response> addCollab(@RequestParam("email") String email, @RequestParam("noteId") Long noteId,
+			@RequestHeader("token") String token) {
+		service.addcolab(noteId, email, token);
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created"));
+	}
+
+	/* API for removing a collaborator */
+	@DeleteMapping("/collabrator/remove")
+	@ApiOperation(value = "Api to remove collaborator of a note for user in Fundoonotes", response = Response.class)
+	public ResponseEntity<Response> removeCollab(@RequestParam("email") String email,
+			@RequestParam("noteId") Long noteId, @RequestHeader("token") String token) {
+		service.removeCollab(noteId, token, email);
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created"));
+	}
+
+	/* API for getting all collaborators */
+	@GetMapping("/getallcollab")
+	@ApiOperation(value = "Api to get all collaborators of a note for user in Fundoonotes", response = Response.class)
+	public ResponseEntity<Response> getAllCollab(@RequestHeader("token") String token) {
+		List<NoteInformation> notes = service.getAllCollabs(token);
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created", notes));
+	}
+
 }

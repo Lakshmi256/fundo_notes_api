@@ -11,6 +11,7 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.bridgelabz.fundoonotes.dto.LoginInformation;
 import com.bridgelabz.fundoonotes.dto.PasswordUpdate;
 import com.bridgelabz.fundoonotes.dto.UserDto;
+import com.bridgelabz.fundoonotes.entity.NoteInformation;
 import com.bridgelabz.fundoonotes.entity.Profile;
 import com.bridgelabz.fundoonotes.entity.UserInformation;
 
@@ -39,5 +40,11 @@ public interface Services {
 	Profile update(MultipartFile file, String originalFilename, String contentType, String token);
 
 	S3Object getProfilePic(String token);
+
+	NoteInformation addcolab(Long noteId, String email, String token);
+
+	List<NoteInformation> getAllCollabs(String token);
+
+	NoteInformation removeCollab(long noteId, String token, String email);
 
 }
