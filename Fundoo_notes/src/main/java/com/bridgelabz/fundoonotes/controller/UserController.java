@@ -62,14 +62,14 @@ public class UserController {
 	/* API for Login */
 	@PostMapping("users/login")
 	@ApiOperation(value = "Api to login for user in  Fundoonotes", response = Response.class)
-	public ResponseEntity<Response> login(@RequestBody LoginInformation information) {
+	public ResponseEntity<UsersDetail> login(@RequestBody LoginInformation information) {
 		UserInformation userInformation = service.login(information);
 		if (userInformation != null) {
 			String token = generate.jwtToken(userInformation.getUserId());
 			return ResponseEntity.status(HttpStatus.ACCEPTED).header("login successfull",token)
-					.body(new Response(token, information));
+					.body(new UsersDetail(token, information));
 		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("login failed ", information));
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new UsersDetail("login failed ", information));
 
 	}
 

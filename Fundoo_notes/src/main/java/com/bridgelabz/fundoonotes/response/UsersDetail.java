@@ -11,9 +11,8 @@ public class UsersDetail {
 	private int statuscode;
 	private Object obj;
 
-	public UsersDetail(String token, int statuscode, Object obj) {
+	public UsersDetail(String token, Object obj) {
 		this.setObj(obj);
-		this.setStatuscode(statuscode);
 		this.setToken(token);
 	}
 

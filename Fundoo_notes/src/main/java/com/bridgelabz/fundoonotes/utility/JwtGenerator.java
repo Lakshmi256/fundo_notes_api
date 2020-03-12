@@ -13,10 +13,10 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 public class JwtGenerator {
 	private static final String SECRET = "1234567890";
 
-	public String jwtToken(long l) {
+	public String jwtToken(long id) {
 		String token = null;
 		try {
-			token = JWT.create().withClaim("id", l).sign(Algorithm.HMAC512(SECRET));
+			token = JWT.create().withClaim("id", id).sign(Algorithm.HMAC512(SECRET));
 		} catch (IllegalArgumentException | JWTCreationException e) {
 
 			e.printStackTrace();
