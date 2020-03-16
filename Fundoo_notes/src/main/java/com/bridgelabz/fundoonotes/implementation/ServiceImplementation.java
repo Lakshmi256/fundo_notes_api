@@ -202,6 +202,7 @@ public class ServiceImplementation implements Services {
 		try {
 			Long userId = (Long) tokenGenerator.parseJWT(token);
 			UserInformation user = userRepository.getUserById(userId);
+			
 			if (user != null) {
 
 				Profile profile = new Profile(fileName, user);

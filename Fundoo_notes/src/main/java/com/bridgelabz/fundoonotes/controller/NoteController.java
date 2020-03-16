@@ -103,7 +103,7 @@ public class NoteController {
 	}
 
 	/* API for getting all trashed Notes */
-	@GetMapping("/note/gettrashed/{id}")
+	@GetMapping("/note/gettrashed/")
 	@ApiOperation(value = "Api to get trashed notes of user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> getTrashed(@RequestHeader("token") String token) {
 		List<NoteInformation> list = service.gettrashednotes(token);
@@ -119,7 +119,7 @@ public class NoteController {
 	}
 
 	/* API for getting all Pinned Notes */
-	@GetMapping("/note/getPinned/{id}")
+	@GetMapping("/note/getPinned/")
 	@ApiOperation(value = "Api to get pinned  notes of a user in Fundoonotes", response = Response.class)
 	public ResponseEntity<Response> getPinned(@RequestHeader("token") String token) {
 		List<NoteInformation> list = service.getPinneded(token);

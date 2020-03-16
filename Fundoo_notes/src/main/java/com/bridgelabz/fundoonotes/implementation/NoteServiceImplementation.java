@@ -67,7 +67,9 @@ public class NoteServiceImplementation implements NoteService {
 		try {
 			Long userid = (Long) tokenGenerator.parseJWT(token);
 
-			user = repository.getUserById(userid);
+			user = repository.getUserById(userid);		
+			
+			
 			NoteInformation note = noteRepository.findById(information.getId());
 			if (note != null) {
 				note.setId(information.getId());
@@ -112,7 +114,10 @@ public class NoteServiceImplementation implements NoteService {
 
 			Long userid = (Long) tokenGenerator.parseJWT(token);
 
-			user = repository.getUserById(userid);
+			user = repository.getUserById(userid);			
+			
+	//	NoteInformation note=user.getNote().stream().filter((note)-> note.getId().equals(id)).findFirst();
+			
 			NoteInformation note = noteRepository.findById(id);
 			if (note != null) {
 				note.setPinned(false);
